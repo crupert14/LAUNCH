@@ -17,6 +17,7 @@ body {
 	width: 100%;
 	background-color: black;
 	background-image: url("../images/bgImage/bg.png");
+	background-image: center center;
 	background-repeat: no-repeat;
 }
 
