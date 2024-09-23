@@ -7,6 +7,16 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, '../public')));
 
+const AboutRoute = require('../app/routes/About');
+const BuyRoute = require('../app/routes/Buy');
+const ContactRoute = require('../app/routes/Contact');
+const HomeRoute = require('../app/routes/Home');
+
+app.use('/About', AboutRoute);
+app.use('/Buy', BuyRoute);
+app.use('/Contact', ContactRoute);
+app.use('/', HomeRoute);
+
 const server = app.listen(port, () => {
     console.log("Server listening on port " + port);
 });
