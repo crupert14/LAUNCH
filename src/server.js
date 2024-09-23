@@ -28,5 +28,5 @@ const server = app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-    res.render(path.join(__dirname, '../public/html/index'));
+    res.render(path.join(__dirname, '../app/views/home.ejs'));
 });
