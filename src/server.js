@@ -7,11 +7,15 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, '../public')));
 
+const SignupRoute = require('../app/routes/Signup');
+const LoginRoute = require('../app/routes/Login')
 const AboutRoute = require('../app/routes/About');
 const BuyRoute = require('../app/routes/Buy');
 const ContactRoute = require('../app/routes/Contact');
 const HomeRoute = require('../app/routes/Home');
 
+app.use('/Signup', SignupRoute);
+app.use('/Login', LoginRoute);
 app.use('/About', AboutRoute);
 app.use('/Buy', BuyRoute);
 app.use('/Contact', ContactRoute);
