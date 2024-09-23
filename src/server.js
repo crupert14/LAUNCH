@@ -6,6 +6,8 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, '../public')));
+app.set('view engine', 'ejs');
+app.set('views', "/Users/caderupert/LAUNCH/app/views");
 
 const SignupRoute = require('../app/routes/Signup');
 const LoginRoute = require('../app/routes/Login')
@@ -26,5 +28,5 @@ const server = app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/index.html'));
+    res.render(path.join(__dirname, '../public/html/index'));
 });
