@@ -1,4 +1,3 @@
-const https = require("https");
 const express = require('express');
 const path = require('path');
 const session = require("express-session");
@@ -15,6 +14,7 @@ const AboutRoute = require('../app/routes/About');
 const BuyRoute = require('../app/routes/Buy');
 const ContactRoute = require('../app/routes/Contact');
 const HomeRoute = require('../app/routes/Home');
+const ICRoute = require('../app/routes/InvestorsCenter')
 
 app.use('/Signup', SignupRoute);
 app.use('/Login', LoginRoute);
@@ -22,6 +22,7 @@ app.use('/About', AboutRoute);
 app.use('/Buy', BuyRoute);
 app.use('/Contact', ContactRoute);
 app.use('/', HomeRoute);
+app.use('/InvestorsCenter', ICRoute);
 
 const server = app.listen(port, () => {
     console.log("Server listening on port " + port);
