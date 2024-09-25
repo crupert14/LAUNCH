@@ -1,6 +1,5 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const uri ='mongodb+srv://rupertcade:CharlieAndPhoebeAndLaunch123$@main.fjiht.mongodb.net/Accounts?retryWrites=true&w=majority&appName=Main';
 //https://stackoverflow.com/questions/9937953/php-database-connection-class-constructor-method
 class Database {
 
