@@ -8,14 +8,11 @@ class Database {
     }
 
     async connect() {
-        console.log("Attempting MongoDB connection...");
-        await mongoose.connect(uri)
-            .then(() => {
-                console.log("Successful connection!");
-            })
-            .catch((err) => {
-                console.log(`Unsuccesful connection: ${err}`);
-            })
+        await mongoose.connect(uri).then(() => {
+            console.log("Connected to database");
+        }).catch((err) => {
+            console.log(`Unsuccesful connection: ${err}`);
+        })
     }
 }
 

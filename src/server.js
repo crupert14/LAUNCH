@@ -13,6 +13,7 @@ app.set('views', "/Users/caderupert/LAUNCH/app/views");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//Navbar
 const SignupRoute = require('../app/routes/Signup');
 const LoginRoute = require('../app/routes/Login')
 const AboutRoute = require('../app/routes/About');
@@ -20,12 +21,19 @@ const BuyRoute = require('../app/routes/Buy');
 const ContactRoute = require('../app/routes/Contact');
 const HomeRoute = require('../app/routes/Home');
 
+//Indirect
+const ProfileRoute = require('../app/routes/Profile');
+
+//Navbar
 app.use('/Signup', SignupRoute);
 app.use('/Login', LoginRoute);
 app.use('/About', AboutRoute);
 app.use('/Buy', BuyRoute);
 app.use('/Contact', ContactRoute);
 app.use('/', HomeRoute);
+
+//Indirect
+app.use('/MyProfile', ProfileRoute);
 
 const server = app.listen(port, () => {
     console.log("Server listening on port " + port);

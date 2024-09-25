@@ -1,0 +1,20 @@
+<style>
+    body {
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        background-size: cover;
+    }
+
+    .profile-name-header {
+        font-size: 10em;
+    }
+
+    #profileName {
+        color: #fc851d;
+    }
+</style>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+    <p class="profile-name-header">Hello, <span id="profileName"><%= profileName %></span></p>
+</body>
