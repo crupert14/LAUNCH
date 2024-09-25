@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { User } = require('/Users/caderupert/LAUNCH/app/models/schemas.js');
+const bcrypt = require('bcrypt');
 
 router.get('/', (req, res) => {
     res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: ""});
@@ -19,38 +20,44 @@ router.post('/', async (req, res) => {
         const existingUsername = await User.findOne({
             username: username
         });
-        if (existingUsername) {
-            throw 4;
-        }
-
         const existingEmail = await User.findOne({
             email: email
         });
-        if (existingUsername) {
-            throw 5;
-        }
 
-        if(username.length > 5) {
-            if(email.length > 5) {
-                if(pass == passConf) {
-                    const newUser = await User.create({
-                        username: username,
-                        password: pass,
-                        email: email
-                    })
-                    res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
-                }
-                else {
-                    throw 1;
-                }
-            }
-            else {
-                throw 2;
-            }
+        if(username == "" || email == "" || pass == "" || passConf == "") {
+            throw 6;
+        } 
+        else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){
+            throw 2;
         }
-        else {
+        else if (username.length < 8) {
             throw 3;
         }
+        else if (pass.length < 8) {
+            throw 7;
+        }
+        else if (existingUsername) {
+            throw 4;
+        }
+        else if (existingEmail) {
+            throw 5;
+        }
+        else if (passConf != pass) {
+            throw 1;
+        }
+        else {
+            const saltRounds = 10;
+            bcrypt.hash(pass, saltRounds).then(hashedPassword => {
+                User.create({
+                    username: username,
+                    password: hashedPassword,
+                    email: email
+                })
+            })
+
+            res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
+        }
+
     }
     catch(err) {
         let message;
@@ -59,7 +66,7 @@ router.post('/', async (req, res) => {
                 message = "Passwords do not match!";
                 break;
             case 2:
-                message = "Email must be at least six character!";
+                message = "Invalid email format!";
                 break;
             case 3:
                 message = "Username must be at least six character!";
@@ -70,8 +77,15 @@ router.post('/', async (req, res) => {
             case 5:
                 message = "Email already in use!";
                 break;
+            case 6:
+                message = "No blank fields are permitted!";
+                break;
+            case 7:
+                message = "Password must be at least 8 characters!";
+                break;
             default:
                 message = "Internal error";
+                console.log(err);
                 break;
         }
         res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: message});
