@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-//https://stackoverflow.com/questions/9937953/php-database-connection-class-constructor-method
+
 class Database {
 
     constructor() {
