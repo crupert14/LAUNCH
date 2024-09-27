@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { User } = require('/Users/caderupert/LAUNCH/app/models/schemas.js');
+const { User } = require(path.join(__dirname, '../models/schemas.js'));
 const bcrypt = require('bcrypt');
 
 const genString = () => {
