@@ -4,6 +4,18 @@ const path = require('path');
 const { User } = require('/Users/caderupert/LAUNCH/app/models/schemas.js');
 const bcrypt = require('bcrypt');
 
+const genString = () => {
+    const len = 8;
+    let randStr = '';
+
+    for(let i=0;i < len;i++) {
+        const ch = Math.floor((Math.random() * 10) + 1);
+        randStr += ch;
+    }
+
+    return randStr;
+}
+
 router.get('/', (req, res) => {
     res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: ""});
 })
