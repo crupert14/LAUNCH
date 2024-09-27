@@ -10,7 +10,7 @@ const port = process.env.PORT;
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.set('view engine', 'ejs');
-app.set('views', "/Users/caderupert/LAUNCH/app/views");
+app.set('views', path.join(__dirname, '../app/views'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
