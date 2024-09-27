@@ -16,12 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Navbar
-const SignupRoute = require('../app/routes/Signup');
-const LoginRoute = require('../app/routes/Login')
-const AboutRoute = require('../app/routes/About');
-const BuyRoute = require('../app/routes/Buy');
-const ContactRoute = require('../app/routes/Contact');
-const HomeRoute = require('../app/routes/Home');
+const SignupRoute = require(path.join(__dirname, '../app/routes/Signup'));
+const LoginRoute = require(path.join(__dirname, '../app/routes/Login'));
+const AboutRoute = require(path.join(__dirname, '../app/routes/About'));
+const BuyRoute = require(path.join(__dirname, '../app/routes/Buy'));
+const ContactRoute = require(path.join(__dirname, '../app/routes/Contact'));
+const HomeRoute = require(path.join(__dirname, '../app/routes/Home'));
 
 //Indirect
 const ProfileRoute = require('../app/routes/Profile');
