@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const { User } = require('../models/schemas');
 
 router.get('/', (req, res) => {
-    res.render(path.join(__dirname, '../../app/views/Login.ejs'));
+    res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: ''});
 })
 
 router.post('/', async(req, res) => {
@@ -22,9 +22,12 @@ router.post('/', async(req, res) => {
                         res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username})
                     }
                     else {
-                        res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: 'Invalid passowrd'});
+                        res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: 'Username or password invalid'});
                     }
                 })
+            }
+            else {
+                res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: 'Username or password invalid'});
             }
         }).catch(err => {
             res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: err});

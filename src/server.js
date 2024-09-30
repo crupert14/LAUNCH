@@ -4,9 +4,16 @@ const express = require('express');
 const path = require('path');
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const expressratelimiter = require('express-rate-limit');
 const mongoose = require('../app/database/database');
 const app = express();
 const port = process.env.PORT;
+
+const limiter = expressratelimiter({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: "Too many requests from this IP, please try again later."
+});
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.set('view engine', 'ejs');
@@ -14,6 +21,13 @@ app.set('views', path.join(__dirname, '../app/views'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(limiter);
+
+app.use(session({
+    secret: "Shh, its a secret!",
+    resave: true,
+    saveUninitialized: false
+}));
 
 //Navbar
 const SignupRoute = require(path.join(__dirname, '../app/routes/Signup'));

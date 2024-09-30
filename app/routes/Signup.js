@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { User } = require(path.join(__dirname, '../models/schemas.js'));
+const { All } = require(path.join(__dirname, '../models/schemas.js'));
 const bcrypt = require('bcrypt');
 
 const genString = () => {
@@ -63,7 +64,16 @@ router.post('/', async (req, res) => {
                 User.create({
                     username: username,
                     password: hashedPassword,
-                    email: email
+                    email: email,
+                    active: false
+                })
+
+                All.create({
+                    usermame: username,
+                    password: hashedPassword,
+                    email: email,
+                    active: false,
+                    accountType: "User"
                 })
             })
 
