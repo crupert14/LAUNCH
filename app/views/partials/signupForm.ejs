@@ -82,6 +82,15 @@
         if(typeof grecaptcha === 'undefined') {
             grecaptcha = {};
           }
+          grecaptcha.ready = function(cb){
+            if(typeof grecaptcha === 'undefined') {
+              const c = '___grecaptcha_cfg';
+              window[c] = window[c] || {};
+              (window[c]['fns'] = window[c]['fns']||[]).push(cb);
+            } else {
+              cb();
+            }
+          }
         grecaptcha.ready(function() {
             document.getElementById('signup-form').addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent form submission until token is available
