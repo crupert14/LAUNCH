@@ -82,7 +82,7 @@
     <script>
         grecaptcha.ready(function() {
             document.getElementById('signup-form').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent form submission before reCAPTCHA token is available
+                event.preventDefault(); // Prevent form submission until token is available
                 grecaptcha.execute('6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv', {action: 'submit'}).then(function(token) {
                     document.getElementById('g-recaptcha-response').value = token;
                     document.getElementById('signup-form').submit();
