@@ -1,6 +1,9 @@
+require('dotenv').config();
+
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const axios = require('axios');
 const { User } = require(path.join(__dirname, '../models/schemas.js'));
 const { All } = require(path.join(__dirname, '../models/schemas.js'));
 const bcrypt = require('bcrypt');
@@ -27,8 +30,19 @@ router.post('/', async (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;
     let passConf = req.body.passConf;
+    let recaptchaToken = req.body['g-recaptcha-response'];
 
     try {
+
+        const recaptchaSecret = process.env.SECRET_KEY;
+        const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaToken}`;
+
+        const recaptchaResponse = await axios.post(verificationUrl);
+        const recaptchaData = recaptchaResponse.data;
+
+        if (!recaptchaData.success) {
+            throw 8;
+        }
 
         const existingUsername = await User.findOne({
             username: username
@@ -104,6 +118,9 @@ router.post('/', async (req, res) => {
                 break;
             case 7:
                 message = "Password must be at least 8 characters!";
+                break;
+            case 8:
+                message = "Failed reCaptcha!"
                 break;
             default:
                 message = "Internal error";

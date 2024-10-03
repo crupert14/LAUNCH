@@ -58,12 +58,7 @@
 
 </style>
 <div class="wrapper">
-    <script>
-        function onSubmit(token) {
-          document.getElementById("demo-form").submit();
-        }
-      </script>
-    <form action="/Signup" method="POST">
+    <form action="/Signup" method="POST" id="signup-form">
         <h1>Join the future!</h1>
         <span><%= err %></span>
         <div class="input-box">
@@ -79,13 +74,20 @@
             <input type="password" placeholder="Confirm Password" name="passConf" required>
         </div>
 
-        <button class="g-recaptcha"
-        data-sitekey="6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv"
-        data-callback='onSubmit'
-        data-action='submit'>
-        Submit
-        </button>
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
-        <button type="submit" class="btn">Signup</button>
+        <button type="submit" class="btn g-recaptcha" data-sitekey="6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv" data-action='submit'>Signup</button>
     </form>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv"></script>
+    <script>
+        grecaptcha.ready(function() {
+            document.getElementById('signup-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form submission before reCAPTCHA token is available
+                grecaptcha.execute('6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv', {action: 'submit'}).then(function(token) {
+                    document.getElementById('g-recaptcha-response').value = token;
+                    document.getElementById('signup-form').submit();
+                });
+            });
+        });
+    </script>
 </div>
