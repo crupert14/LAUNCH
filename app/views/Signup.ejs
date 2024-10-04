@@ -15,7 +15,91 @@
 </style>
 <body>
     <%- include('./partials/navbar.ejs') %>
-    <%- include('./partials/signupForm.ejs') %>
+    
+
+    <style>
+
+        .wrapper {
+            width: 35em;
+            background: transparent;
+            border: 0.25em solid rgba(255, 255, 255, .2);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 0.5em rgba(0,0,0,.2);
+            color: white;
+            border-radius: 10px;
+            padding: 1.5em 1.75em;
+            margin: auto;
+        }
+    
+        .wrapper h1 {
+            font-size: 3.6em;
+            text-align: center;
+        }
+    
+        .wrapper .input-box {
+            width: 100%;
+            height: 3em;
+            margin: 2em 0;
+        }
+    
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            color: white;
+            padding: 1em 2em 1em 1em;
+        }
+    
+        .input-box input::placeholder {
+            color: white;
+        }
+    
+        .wrapper .btn {
+            width: 100%;
+            height: 3em;
+            background: #fc851d;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
+            transition: 300ms;
+            cursor:pointer;
+        }
+    
+        .wrapper .btn:hover {
+            background: white;
+            color: #fc851d;
+        }
+    
+    </style>
+    <div class="wrapper">
+        <form action="/Signup" method="POST" id="signup-form">
+            <h1>Join the future!</h1>
+            <span><%= err %></span>
+            <div class="input-box">
+                <input type="text" placeholder="Username" name="user" required>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Email" name="email" required>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Password" name="pass" required>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Confirm Password" name="passConf" required>
+            </div>
+
+            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
+            <button type="submit" class="btn g-recaptcha" data-sitekey="6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv" data-action="submit" onclick="onClick(event)">Signup</button>
+    
+        </form>
+    </div>
+
 </body>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9"></script>
 <script>
@@ -23,6 +107,7 @@
       e.preventDefault();
       grecaptcha.ready(function() {
         grecaptcha.execute('6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9', {action: 'submit'}).then(function(token) {
+            console.log('reCAPTCHA token:', token); 
             document.getElementById('g-recaptcha-response').value = token;
             document.getElementById('signup-form').submit();
         });

@@ -31,11 +31,15 @@ router.post('/', async (req, res) => {
     let pass = req.body.pass;
     let passConf = req.body.passConf;
     let captchaToken = req.body['g-recaptcha-response'];
+    console.log('Captcha Token Received:', captchaToken);
     const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${captchaToken}`;
 
-    console.log(captchaToken);
-
     try {
+        const captchaResponse = await axios.post(verificationURL);
+        console.log('Captcha Response from Google:', captchaResponse.data);
+        if (!captchaResponse.data.success) {
+            throw 8;
+        }
         const existingUsername = await User.findOne({
             username: username
         });
