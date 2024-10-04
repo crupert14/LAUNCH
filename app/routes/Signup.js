@@ -6,6 +6,7 @@ const path = require('path');
 const axios = require('axios');
 const { User } = require(path.join(__dirname, '../models/schemas.js'));
 const { All } = require(path.join(__dirname, '../models/schemas.js'));
+const { sendMail } = require(path.join(__dirname + '/util/transport.js'));
 const bcrypt = require('bcrypt');
 
 const genString = () => {
@@ -86,6 +87,12 @@ router.post('/', async (req, res) => {
                     accountType: "User"
                 })
             })
+
+            sendMail(
+                email,
+                'Welcome to the platform!',
+                'Thank you for signing up for our platform. We are excited to have you!'
+              );
 
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
