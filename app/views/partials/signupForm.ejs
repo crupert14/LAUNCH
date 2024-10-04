@@ -74,6 +74,8 @@
             <input type="password" placeholder="Confirm Password" name="passConf" required>
         </div>
 
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
         <button 
         type="submit" 
         class="btn g-recaptcha"
@@ -83,9 +85,20 @@
 
     </form>
 </div>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv"></script>
 <script>
-    function onSubmit(token) {
-        document.getElementById("signup-form").submit();
-    }
+    // Ensure grecaptcha is ready
+    grecaptcha.ready(function() {
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting immediately
+            grecaptcha.execute('6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv', {action: 'submit'}).then(function(token) {
+                // Set the token in the hidden input field
+                document.getElementById('g-recaptcha-response').value = token;
+                // Now submit the form
+                document.getElementById('signup-form').submit();
+            }).catch(function(error) {
+                console.error('reCAPTCHA failed:', error);
+            });
+        });
+    });
 </script>
