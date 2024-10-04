@@ -17,3 +17,15 @@
     <%- include('./partials/navbar.ejs') %>
     <%- include('./partials/signupForm.ejs') %>
 </body>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9"></script>
+<script>
+    function onClick(e) {
+      e.preventDefault();
+      grecaptcha.ready(function() {
+        grecaptcha.execute('6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9', {action: 'submit'}).then(function(token) {
+            document.getElementById('g-recaptcha-response').value = token;
+            document.getElementById('signup-form').submit();
+        });
+      });
+    }
+</script>

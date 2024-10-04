@@ -30,6 +30,10 @@ router.post('/', async (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;
     let passConf = req.body.passConf;
+    let captchaToken = req.body['g-recaptcha-response'];
+    const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${captchaToken}`;
+
+    console.log(captchaToken);
 
     try {
         const existingUsername = await User.findOne({
