@@ -30,8 +30,20 @@ router.post('/', async (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;
     let passConf = req.body.passConf;
+    let captchaToken = req.body['g-recaptcha-response'];
+
+    if (!captchaToken) {
+        return res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: "Failed reCaptcha!"});
+    }
 
     try {
+
+        const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${captchaToken}`;
+        const response = await axios.post(verifyURL);
+
+        if (!response.data.success) {
+            return res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: "Failed reCaptcha!"});
+        }
 
         const existingUsername = await User.findOne({
             username: username

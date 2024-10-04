@@ -74,6 +74,18 @@
             <input type="password" placeholder="Confirm Password" name="passConf" required>
         </div>
 
-        <button type="submit" class="btn">Signup</button>
+        <button 
+        type="submit" 
+        class="btn g-recaptcha"
+        data-sitekey="6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv"
+        data-callback="onSubmit"
+        data-action="submit">Signup</button>
+
     </form>
 </div>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("signup-form").submit();
+    }
+</script>
