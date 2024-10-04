@@ -87,7 +87,7 @@ router.post('/', async (req, res) => {
                 })
             })
 
-            res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: captchaToken});
+            res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
 
     }
