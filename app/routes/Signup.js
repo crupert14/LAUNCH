@@ -86,13 +86,13 @@ router.post('/', async (req, res) => {
                     active: false,
                     accountType: "User"
                 })
-            })
 
-            sendMail(
-                email,
-                'Welcome to the platform!',
-                'Thank you for signing up for our platform. We are excited to have you!'
-              );
+                sendMail(
+                    email,
+                    'Welcome to the platform!',
+                    'Thank you for signing up for our platform. We are excited to have you!'
+                  );
+            })
 
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
