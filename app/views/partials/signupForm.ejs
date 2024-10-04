@@ -74,31 +74,6 @@
             <input type="password" placeholder="Confirm Password" name="passConf" required>
         </div>
 
-        <button type="submit" class="btn g-recaptcha" data-sitekey="6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv" data-action='submit'>Signup</button>
+        <button type="submit" class="btn">Signup</button>
     </form>
-    <script async src="https://www.google.com/recaptcha/enterprise.js?render=6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv"></script>
-    <script async src="https://www.google.com/recaptcha/api.js"></script>
-    <script>
-        if(typeof grecaptcha === 'undefined') {
-            grecaptcha = {};
-          }
-          grecaptcha.ready = function(cb){
-            if(typeof grecaptcha === 'undefined') {
-              const c = '___grecaptcha_cfg';
-              window[c] = window[c] || {};
-              (window[c]['fns'] = window[c]['fns']||[]).push(cb);
-            } else {
-              cb();
-            }
-          }
-        grecaptcha.ready(function() {
-            document.getElementById('signup-form').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent form submission until token is available
-                grecaptcha.execute('6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv', {action: 'submit'}).then(function(token) {
-                    document.getElementById('g-recaptcha-response').value = token;
-                    document.getElementById('signup-form').submit();
-                });
-            });
-        });
-    </script>
 </div>
