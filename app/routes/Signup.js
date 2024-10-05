@@ -114,14 +114,6 @@ router.post('/', async (req, res) => {
                     email: email,
                     active: false
                 })
-
-                All.create({
-                    usermame: username,
-                    password: hashedPassword,
-                    email: email,
-                    active: false,
-                    accountType: "User"
-                })
             })
 
             await sendMail(email, "Testing again", "this is text").then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
