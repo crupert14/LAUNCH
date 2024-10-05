@@ -23,6 +23,11 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         require: true,
         default: false
+    },
+    token: {
+        type: String,
+        require: true,
+        unique: true
     }
 }, {collection: "Users"});
 

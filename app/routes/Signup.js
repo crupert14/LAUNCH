@@ -5,10 +5,11 @@ const router = express.Router();
 const path = require('path');
 const axios = require('axios');
 const nodemailer = require('nodemailer');
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 const { google } = require('googleapis');
 const { User } = require(path.join(__dirname, '../models/schemas.js'));
 const { All } = require(path.join(__dirname, '../models/schemas.js'));
-const bcrypt = require('bcrypt');
 
 const oAuth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
 oAuth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
@@ -43,6 +44,10 @@ async function sendMail(email, subject, text) {
     }
 }
 
+function generateAccessToken(email) {
+    return jwt.sign(email, process.env.WEBSITE_SECRET, { expiresIn: '300s' });
+}
+
 //End email
 
 const genString = () => {
@@ -67,13 +72,13 @@ router.post('/', async (req, res) => {
     let email = req.body.email;
     let pass = req.body.pass;
     let passConf = req.body.passConf;
+    let confToken =  generateAccessToken(email);
     let captchaToken = req.body['g-recaptcha-response'];
-    console.log('Captcha Token Received:', captchaToken);
+    
     const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${captchaToken}`;
 
     try {
         const captchaResponse = await axios.post(verificationURL);
-        console.log('Captcha Response from Google:', captchaResponse.data);
         if (!captchaResponse.data.success) {
             throw 8;
         }
@@ -112,11 +117,12 @@ router.post('/', async (req, res) => {
                     username: username,
                     password: hashedPassword,
                     email: email,
-                    active: false
+                    active: false,
+                    token: confToken
                 })
             })
 
-            const emailText = "<p> i want to hug ur buttocks - Amoni </p>"
+            const emailText = `<h1> Verify your Launch! Account </h1> <p> Before you can access your profile, click the link below to verify</p> <p> Insert link here </p>`
 
             await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 

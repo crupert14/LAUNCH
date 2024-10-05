@@ -38,7 +38,8 @@ const ContactRoute = require(path.join(__dirname, '../app/routes/Contact'));
 const HomeRoute = require(path.join(__dirname, '../app/routes/Home'));
 
 //Indirect
-const ProfileRoute = require('../app/routes/Profile');
+const ProfileRoute = require(path.join(__dirname, '../app/routes/Profile'));
+const ConfirmationRoute = require(path.join(__dirname, '../app/routes/Confirmation'));
 
 //Navbar
 app.use('/Signup', SignupRoute);
@@ -50,6 +51,7 @@ app.use('/', HomeRoute);
 
 //Indirect
 app.use('/MyProfile', ProfileRoute);
+app.use('/Confirmation', ConfirmationRoute);
 
 const server = app.listen(port, () => {
     console.log("Server listening on port " + port);
