@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const bodyParser = require("body-parser");
 const expressratelimiter = require('express-rate-limit');
 const mongoose = require('../app/database/database');
@@ -18,6 +19,7 @@ const limiter = expressratelimiter({
 app.use(express.static(path.join(__dirname, '../public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../app/views'));
+app.set('trust proxy', 1);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,9 +27,17 @@ app.use(limiter);
 
 app.use(session({
     secret: process.env.WEBSITE_SECRET,
-    resave: true,
-    saveUninitialized: false
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI,
+        collectionName: 'sessions',
+        ttl: 14 * 24 * 60 * 60
+    }),
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
+
+mongoose.connect();
 
 //Navbar
 const SignupRoute = require(path.join(__dirname, '../app/routes/Signup'));

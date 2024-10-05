@@ -25,7 +25,7 @@ async function sendMail(email, subject, text) {
                 clientId: process.env.CLIENT_ID,
                 clientSecret: process.env.CLIENT_SECRET,
                 refreshToken: process.env.REFRESH_TOKEN,
-                accessToken: accessToken
+                accessToken: accessToken.token
             }
         })
 
@@ -45,7 +45,7 @@ async function sendMail(email, subject, text) {
 }
 
 function generateAccessToken(email) {
-    return jwt.sign(email, process.env.WEBSITE_SECRET, { expiresIn: '300s' });
+    return jwt.sign({ email }, process.env.WEBSITE_SECRET, { expiresIn: '300s' });
 }
 
 //End email
@@ -112,7 +112,7 @@ router.post('/', async (req, res) => {
         }
         else {
             const saltRounds = 10;
-            bcrypt.hash(pass, saltRounds).then(hashedPassword => {
+            await bcrypt.hash(pass, saltRounds).then(hashedPassword => {
                 User.create({
                     username: username,
                     password: hashedPassword,
