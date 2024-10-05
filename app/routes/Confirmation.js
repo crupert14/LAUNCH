@@ -10,6 +10,7 @@ router.get('/:token', (req, res) => {
         console.log(jwt.verify(req.params.token, process.env.WEBSITE_SECRET));
     }
     catch(err) {
+        console.log("Error: " + err);
         res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: "Token invalid!"});
     }
 })
