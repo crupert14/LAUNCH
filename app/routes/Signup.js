@@ -130,7 +130,7 @@ router.post('/', async (req, res) => {
             const emailText = `<h1> Verify your Launch! Account </h1>
             <p> Thank you for signing up! Before you can access your profile, please verify your email.</p>
             <p> Below is your verification code:</p>
-            <p><strong>{{confToken}}</strong></p> <!-- Display the actual token here -->
+            <p><strong>${confToken}</strong></p> <!-- Display the actual token here -->
             <p> To complete the verification, click the link below to enter your verification code:</p>
             <p><a href="https://launchgummies.com/Confirmation"> Click here to verify! </a></p>`
 
