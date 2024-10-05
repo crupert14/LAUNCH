@@ -10,14 +10,8 @@ const { User } = require(path.join(__dirname, '../models/schemas.js'));
 const { All } = require(path.join(__dirname, '../models/schemas.js'));
 const bcrypt = require('bcrypt');
 
-//Email
-const CLIENT_ID = "422471944512-d9d8ajmmrk6k2hdn87jdoq4jcm01u9h6.apps.googleusercontent.com";
-const CLIENT_SECRET = "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";
-const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-const REFRESH_TOKEN = "1//04xPwlOvkDYNACgYIARAAGAQSNwF-L9IrT-qj5hd32egRihGDBMomo7hnr3U6kGIORpVefVjh6A-mP6hfiaadkzxqXJZf4tNz6CU";
-
-const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+const oAuth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
+oAuth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
 
 async function sendMail() {
     try {
@@ -27,9 +21,9 @@ async function sendMail() {
             auth: {
                 type: 'OAuth2',
                 user: 'no-reply@launchgummies.com',
-                clientId: CLIENT_ID,
-                clientSecret: CLIENT_SECRET,
-                refreshToken: REFRESH_TOKEN,
+                clientId: process.env.CLIENT_ID,
+                clientSecret: process.env.CLIENT_SECRET,
+                refreshToken: process.env.REFRESH_TOKEN,
                 accessToken: accessToken
             }
         })
