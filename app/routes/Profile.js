@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require('path');
 
 router.get('/', (req, res) => {
-    if(req.session.user) {
+    if(req.session.isLoggedIn) {
         res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: ""});
     }
     else {
