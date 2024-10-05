@@ -45,7 +45,7 @@ async function sendMail(email, subject, text) {
 }
 
 function generateAccessToken(email) {
-    return jwt.sign({ email }, process.env.WEBSITE_SECRET, { expiresIn: '300s' });
+    return jwt.sign({ email }, process.env.WEBSITE_SECRET, { expiresIn: '1h' });
 }
 
 //End email
@@ -129,7 +129,7 @@ router.post('/', async (req, res) => {
 
             console.log(req.session.user);
 
-            const url = `https://launchgummies.com/Confirmation/${confToken};`
+            const url = `https://launchgummies.com/Confirmation/${confToken}`;
 
             const emailText = `<h1> Verify your Launch! Account </h1> <p> Before you can access your profile, click the link below to verify</p> <p><a href="${url}"> Click me! </a></p>`
 
