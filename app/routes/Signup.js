@@ -32,7 +32,7 @@ async function sendMail(email, subject, text) {
             from: 'no-reply@launchgummies.com',
             to: email,
             subject: subject,
-            text: text
+            html: text
         }
 
         const result = await transport.sendMail(mailOptions)
@@ -116,7 +116,9 @@ router.post('/', async (req, res) => {
                 })
             })
 
-            await sendMail(email, "Screw you teagan", "I hope you contract something").then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
+            const emailText = "<h1> Testing HTML </h1> <p>This is a paragraph tag</p>"
+
+            await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
