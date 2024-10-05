@@ -7,8 +7,7 @@ const jwt = require('jsonwebtoken');
 
 router.get('/:token', (req, res) => {
     try {
-        const decode = jwt.verify(token, process.env.WEBSITE_SECRET);
-        console.log(decode);
+        console.log(jwt.verify(req.params.token, process.env.WEBSITE_SECRET));
     }
     catch(err) {
         res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: "Token invalid!"});
