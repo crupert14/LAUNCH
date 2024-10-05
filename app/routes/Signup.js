@@ -116,7 +116,7 @@ router.post('/', async (req, res) => {
                 })
             })
 
-            await sendMail(email, "Testing again", "this is text").then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
+            await sendMail(email, "Screw you teagan", "I hope you contract something").then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
