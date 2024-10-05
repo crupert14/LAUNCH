@@ -27,6 +27,8 @@ async function auth(req, res, next) {
             email: user.email
         };
 
+        req.session.isLoggedIn = true;
+
         // Proceed to the next middleware/route handler
         next();
     } catch (err) {
