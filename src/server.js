@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(limiter);
 
 app.use(session({
-    secret: "Shh, its a secret!",
+    secret: process.env.WEBSITE_SECRET,
     resave: true,
     saveUninitialized: false
 }));

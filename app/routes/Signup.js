@@ -122,6 +122,13 @@ router.post('/', async (req, res) => {
                 })
             })
 
+            req.session.user = {
+                username: username,
+                email: email
+            }
+
+            console.log(req.session.user);
+
             const emailText = `<h1> Verify your Launch! Account </h1> <p> Before you can access your profile, click the link below to verify</p> <p> Insert link here </p>`
 
             await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
