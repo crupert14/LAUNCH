@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo');
 const bodyParser = require("body-parser");
 const expressratelimiter = require('express-rate-limit');
 const mongoose = require('../app/database/database');
+const passport = require(path.join(__dirname, '../app/config/passport-setup'));
 const app = express();
 const port = process.env.PORT;
 
@@ -37,6 +38,9 @@ app.use(session({
     cookie: { maxAge: 1000 * 60 * 60 * 24 },
     isLoggedIn: false
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.connect();
 

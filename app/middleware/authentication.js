@@ -1,24 +1,13 @@
-const bcrypt = require('bcrypt');
-const { User } = require('../models/schemas');
+const passport = require('passport'); // Import passport
 const path = require('path');
 
 async function auth(req, res, next) {
-    const { username, password } = req.body;
-
-    try {
-        const user = await User.findOne({ username });
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'An error occurred during authentication' });
+        }
         if (!user) {
-            return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'Username or password invalid' });
-        }
-
-        if (!user.active) {
-            return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'Account not yet verified, please verify through your email' });
-        }
-
-        // Compare passwords
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'Username or password invalid' });
+            return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: info.message });
         }
 
         // If authentication successful, attach user data to session
@@ -26,15 +15,11 @@ async function auth(req, res, next) {
             username: user.username,
             email: user.email
         };
-
         req.session.isLoggedIn = true;
 
         // Proceed to the next middleware/route handler
-        next();
-    } catch (err) {
-        return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'An error occurred during authentication' });
-        next();
-    }
+        return next();
+    })(req, res, next); // Call the function
 }
 
 module.exports = { auth };
