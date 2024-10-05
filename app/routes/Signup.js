@@ -133,7 +133,7 @@ router.post('/', async (req, res) => {
 
             await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
-            res.redirect('/Login');
+            res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: "Verify your email to sign in!"});
         }
 
     }
