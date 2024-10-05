@@ -124,8 +124,7 @@ router.post('/', async (req, res) => {
                 })
             })
 
-            sendMail().then(result => console.log('Email sent', result))
-            .catch(error => console.log(error.message))
+            sendMail();
 
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
