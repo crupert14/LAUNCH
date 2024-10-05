@@ -77,7 +77,9 @@
 
     #strength-level {
         width: 0%;
-        height: 10px;
+        height: 2em;
+        border-radius: 2em;
+        transition: width 0.5s ease, background-color 0.5s ease;
     }  
 </style>
 <body>
@@ -99,7 +101,7 @@
                 <input type="password" placeholder="Confirm Password" name="passConf" required>
             </div>
 
-            <p>Password strength: <span id="password-strength"></span></p>
+            <p>Password strength: <span id="password-strength">Enter a password</span></p>
             <div id="strength-bar">
                 <div id="strength-level" style="width: 0%; height: 10px; background-color: grey;"></div>
             </div>
@@ -148,26 +150,38 @@
 
         // Update text and color based on password strength score
         const score = result.score;
-        strengthText.innerText = getPasswordStrengthText(score);
-        strengthBar.style.width = (score + 1) * 20 + '%';
-        strengthBar.style.backgroundColor = strengthColors[score];
+        if(passwordInput.value.length < 1) {
+            strengthText.innerText = "Enter a password";
+            strengthBar.style.width = 0;
+            strengthBar.style.backgroundColor = strengthColors[0];
+        }
+        else {
+            strengthText.innerText = getPasswordStrengthText(score);
+            strengthBar.style.width = (score + 1) * 20 + '%';
+            strengthBar.style.backgroundColor = strengthColors[score];
+        }
     });
 
     // Function to return strength text based on score
     function getPasswordStrengthText(score) {
-        switch (score) {
-            case 0:
-                return "Very Weak";
-            case 1:
-                return "Weak";
-            case 2:
-                return "Okay";
-            case 3:
-                return "Good";
-            case 4:
-                return "Strong";
-            default:
-                return "";
+        if(passwordInput.value.length < 1) {
+            return "Enter a password"
+        }
+        else {
+            switch (score) {
+                case 0:
+                    return "Very Weak";
+                case 1:
+                    return "Weak";
+                case 2:
+                    return "Okay";
+                case 3:
+                    return "Good";
+                case 4:
+                    return "Strong";
+                default:
+                    return "";
+            }
         }
     }
 </script>
