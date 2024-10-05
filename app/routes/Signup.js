@@ -4,9 +4,52 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const axios = require('axios');
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
 const { User } = require(path.join(__dirname, '../models/schemas.js'));
 const { All } = require(path.join(__dirname, '../models/schemas.js'));
 const bcrypt = require('bcrypt');
+
+//Email
+const CLIENT_ID = "422471944512-d9d8ajmmrk6k2hdn87jdoq4jcm01u9h6.apps.googleusercontent.com";
+const CLIENT_SECRET = "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";
+const REDIRECT_URI = "https://developers.google.com/oauthplayground";
+const REFRESH_TOKEN = "1//04xPwlOvkDYNACgYIARAAGAQSNwF-L9IrT-qj5hd32egRihGDBMomo7hnr3U6kGIORpVefVjh6A-mP6hfiaadkzxqXJZf4tNz6CU";
+
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+
+async function sendMail() {
+    try {
+        const accessToken = await oAuth2Client.getAccessToken();
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: 'no-reply@launchgummies.com',
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken
+            }
+        })
+
+        const mailOptions = {
+            from: 'no-reply@launchgummies.com',
+            to: 'rupertcade@gmail.com',
+            subject: 'testing',
+            text: 'testing the api'
+        }
+
+        const result = await transport.sendMail(mailOptions)
+        return result;
+    }
+    catch(err) {
+        return err
+    }
+}
+
+//End email
 
 const genString = () => {
     const len = 8;
@@ -86,6 +129,9 @@ router.post('/', async (req, res) => {
                     accountType: "User"
                 })
             })
+
+            sendMail().then(result => console.log('Email sent', result))
+            .catch(error => console.log(error.message))
 
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
