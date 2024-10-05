@@ -31,6 +31,7 @@ async function auth(req, res, next) {
         next();
     } catch (err) {
         return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'An error occurred during authentication' });
+        next();
     }
 }
 
