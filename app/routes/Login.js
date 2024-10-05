@@ -10,7 +10,12 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', auth, (req, res) => {
-    res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { profileName: req.session.user.username });
+    try {
+        res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { profileName: req.session.user.username });
+    }
+    catch(err) {
+        res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: err});
+    }
 })
 
 module.exports = router;
