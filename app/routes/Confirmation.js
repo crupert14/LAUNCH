@@ -6,11 +6,17 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const { User } = require(path.join(__dirname, '../models/schemas.js')); // Assuming you have a User model
 
-router.get('/:token', async (req, res) => {
+router.get('/', (req, res) => {
+    res.render(path.join(__dirname, '../../app/views/Confirmation.ejs'), { err: "" });
+});
+
+router.post('/', async (req, res) => {
+    const { token } = req.body; // Get the token from the request body
+
     try {
         // Verify the token
-        const decoded = jwt.verify(req.params.token, process.env.WEBSITE_SECRET);
-        
+        const decoded = jwt.verify(token, process.env.WEBSITE_SECRET);
+
         // Find the user by email from the token
         const user = await User.findOne({ email: decoded.email });
 
@@ -29,5 +35,4 @@ router.get('/:token', async (req, res) => {
         res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Token invalid!" });
     }
 });
-
 module.exports = router;

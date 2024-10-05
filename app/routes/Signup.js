@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { google } = require('googleapis');
 const { User } = require(path.join(__dirname, '../models/schemas.js'));
-const { All } = require(path.join(__dirname, '../models/schemas.js'));
 
 const oAuth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
 oAuth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
@@ -68,10 +67,7 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
 
-    let username = req.body.user;
-    let email = req.body.email;
-    let pass = req.body.pass;
-    let passConf = req.body.passConf;
+    const { user: username, email, pass, passConf } = req.body;
     let confToken =  generateAccessToken(email);
     let captchaToken = req.body['g-recaptcha-response'];
     
@@ -131,7 +127,12 @@ router.post('/', async (req, res) => {
 
             const url = `https://launchgummies.com/Confirmation/${confToken}`;
 
-            const emailText = `<h1> Verify your Launch! Account </h1> <p> Before you can access your profile, click the link below to verify</p> <p><a href="${url}"> Click me! </a></p>`
+            const emailText = `<h1> Verify your Launch! Account </h1>
+            <p> Thank you for signing up! Before you can access your profile, please verify your email.</p>
+            <p> Below is your verification code:</p>
+            <p><strong>{{confToken}}</strong></p> <!-- Display the actual token here -->
+            <p> To complete the verification, click the link below to enter your verification code:</p>
+            <p><a href="https://launchgummies.com/Confirmation"> Click here to verify! </a></p>`
 
             await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
