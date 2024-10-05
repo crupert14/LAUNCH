@@ -116,7 +116,7 @@ router.post('/', async (req, res) => {
                 })
             })
 
-            const emailText = "<h1> Testing HTML </h1> <p>This is a paragraph tag</p>"
+            const emailText = "<p> i want to hug ur buttocks - Amoni </p>"
 
             await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
