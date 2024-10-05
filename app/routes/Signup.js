@@ -13,7 +13,7 @@ const bcrypt = require('bcrypt');
 const oAuth2Client = new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
 oAuth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
 
-async function sendMail() {
+async function sendMail(email, subject, text) {
     try {
         const accessToken = await oAuth2Client.getAccessToken();
         const transport = nodemailer.createTransport({
@@ -30,9 +30,9 @@ async function sendMail() {
 
         const mailOptions = {
             from: 'no-reply@launchgummies.com',
-            to: 'rupertcade@gmail.com',
-            subject: 'testing',
-            text: 'testing the api'
+            to: email,
+            subject: subject,
+            text: text
         }
 
         const result = await transport.sendMail(mailOptions)
@@ -124,7 +124,7 @@ router.post('/', async (req, res) => {
                 })
             })
 
-            await sendMail().then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
+            await sendMail(email, "Testing again", "this is text").then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: username});
         }
