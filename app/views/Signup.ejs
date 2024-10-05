@@ -12,74 +12,80 @@
         background-image: url("../assets/bgImage/bg.png");
         background-size: cover;
     }
+    .wrapper {
+        width: 35em;
+        background: transparent;
+        border: 0.25em solid rgba(255, 255, 255, .2);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 0.5em rgba(0,0,0,.2);
+        color: white;
+        border-radius: 10px;
+        padding: 1.5em 1.75em;
+        margin: auto;
+    }
+
+    .wrapper h1 {
+        font-size: 3.6em;
+        text-align: center;
+    }
+
+    .wrapper .input-box {
+        width: 100%;
+        height: 3em;
+        margin: 2em 0;
+    }
+
+    .input-box input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        border: 2px solid rgba(255, 255, 255, .2);
+        border-radius: 40px;
+        color: white;
+        padding: 1em 2em 1em 1em;
+    }
+
+    .input-box input::placeholder {
+        color: white;
+    }
+
+    .wrapper .btn {
+        width: 100%;
+        height: 3em;
+        background: #fc851d;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
+        transition: 300ms;
+        cursor:pointer;
+    }
+
+    .wrapper .btn:hover {
+        background: white;
+        color: #fc851d;
+    }
+    #strength-bar {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #strength-level {
+        width: 0%;
+        height: 10px;
+    }  
 </style>
 <body>
     <%- include('./partials/navbar.ejs') %>
-    
-
-    <style>
-
-        .wrapper {
-            width: 35em;
-            background: transparent;
-            border: 0.25em solid rgba(255, 255, 255, .2);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 0.5em rgba(0,0,0,.2);
-            color: white;
-            border-radius: 10px;
-            padding: 1.5em 1.75em;
-            margin: auto;
-        }
-    
-        .wrapper h1 {
-            font-size: 3.6em;
-            text-align: center;
-        }
-    
-        .wrapper .input-box {
-            width: 100%;
-            height: 3em;
-            margin: 2em 0;
-        }
-    
-        .input-box input {
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            border: 2px solid rgba(255, 255, 255, .2);
-            border-radius: 40px;
-            color: white;
-            padding: 1em 2em 1em 1em;
-        }
-    
-        .input-box input::placeholder {
-            color: white;
-        }
-    
-        .wrapper .btn {
-            width: 100%;
-            height: 3em;
-            background: #fc851d;
-            border: none;
-            outline: none;
-            border-radius: 40px;
-            box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
-            transition: 300ms;
-            cursor:pointer;
-        }
-    
-        .wrapper .btn:hover {
-            background: white;
-            color: #fc851d;
-        }
-    
-    </style>
     <div class="wrapper">
         <form action="/Signup" method="POST" id="signup-form">
             <h1>Join the future!</h1>
-            <span><%= err %></span>
+            <span id="err-box"><%= err %></span>
             <div class="input-box">
                 <input type="text" placeholder="Username" name="user" required>
             </div>
@@ -87,10 +93,15 @@
                 <input type="text" placeholder="Email" name="email" required>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" name="pass" required>
+                <input type="password" id="password" placeholder="Password" name="pass" required>
             </div>
             <div class="input-box">
                 <input type="password" placeholder="Confirm Password" name="passConf" required>
+            </div>
+
+            <p>Password strength: <span id="password-strength"></span></p>
+            <div id="strength-bar">
+                <div id="strength-level" style="width: 0%; height: 10px; background-color: grey;"></div>
             </div>
 
             <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
@@ -102,15 +113,61 @@
 
 </body>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 <script>
     function onClick(e) {
-      e.preventDefault();
-      grecaptcha.ready(function() {
-        grecaptcha.execute('6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9', {action: 'submit'}).then(function(token) {
-            console.log('reCAPTCHA token:', token); 
-            document.getElementById('g-recaptcha-response').value = token;
-            document.getElementById('signup-form').submit();
-        });
-      });
+        const result = zxcvbn(passwordInput.value);
+
+        if (result.score < 2) { 
+            event.preventDefault();
+            document.getElementById("err-box").innerHTML = 'Your password is too weak! Please choose a stronger password.';
+        }
+        else {
+
+            e.preventDefault();
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9', {action: 'submit'}).then(function(token) {
+                    console.log('reCAPTCHA token:', token); 
+                    document.getElementById('g-recaptcha-response').value = token;
+                    document.getElementById('signup-form').submit();
+                });
+            });
+        }
+    }
+
+    const passwordInput = document.getElementById('password');
+    const strengthText = document.getElementById('password-strength');
+    const strengthBar = document.getElementById('strength-level');
+
+    // Array of colors for different strength levels
+    const strengthColors = ['#ff4d4d', '#ff751a', '#ffcc00', '#66ff66', '#00cc00'];
+
+    passwordInput.addEventListener('input', function () {
+        const password = passwordInput.value;
+        const result = zxcvbn(password);
+
+        // Update text and color based on password strength score
+        const score = result.score;
+        strengthText.innerText = getPasswordStrengthText(score);
+        strengthBar.style.width = (score + 1) * 20 + '%';
+        strengthBar.style.backgroundColor = strengthColors[score];
+    });
+
+    // Function to return strength text based on score
+    function getPasswordStrengthText(score) {
+        switch (score) {
+            case 0:
+                return "Very Weak";
+            case 1:
+                return "Weak";
+            case 2:
+                return "Okay";
+            case 3:
+                return "Good";
+            case 4:
+                return "Strong";
+            default:
+                return "";
+        }
     }
 </script>
