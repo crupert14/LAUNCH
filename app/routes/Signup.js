@@ -123,8 +123,6 @@ router.post('/', async (req, res) => {
                 email: email
             }
 
-            console.log(req.session.user);
-
             const url = `https://launchgummies.com/Confirmation/${confToken}`;
 
             const emailText = `<h1> Verify your Launch! Account </h1>

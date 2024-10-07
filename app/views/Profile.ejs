@@ -6,10 +6,6 @@
         background-size: cover;
     }
 
-    .profile-name-header {
-        font-size: 10em;
-    }
-
     #profileName {
         color: #fc851d;
     }
@@ -20,5 +16,5 @@
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-    <p class="profile-name-header">Hello, <span id="profileName"><%= profileName %></span></p>
+    <%- include('./partials/profilePage.ejs') %>
 </body>

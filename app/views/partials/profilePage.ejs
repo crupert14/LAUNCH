@@ -1,0 +1,171 @@
+<style>
+    .wrapper {
+        width: 80%;
+        height: 70%;
+        background: transparent;
+        border: 0.25em solid rgba(255, 255, 255, .2);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 0.5em rgba(0,0,0,.2);
+        color: white;
+        border-radius: 10px;
+        padding: 0;
+        margin: auto;
+        display: flex;
+        box-sizing: border-box;
+    }
+
+    .sidebar-wrapper {
+        width: 20%;
+        height: auto;
+        border-right: 0.25em solid #fc851d;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        padding: 0;
+    }
+
+    .tablinks {
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        color: white;
+        text-decoration: none;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+        flex: 1;
+    }
+
+    .tablinks:first-of-type {
+        border-top-left-radius: 6px;
+    }
+
+    .tablinks:last-of-type {
+        border-bottom-left-radius: 6px;
+    }
+
+    .tablinks:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .content-wrapper {
+        width: 80%;
+        padding: 1.5em;
+    }
+
+    .profile-name-header {
+        text-align: right;
+        font-size: 1.2em;
+    }
+
+    .content-section {
+        display: none;
+    }
+
+    .content-section.active {
+        display: block;
+    }
+
+    .profileInput {
+        width: 20%;
+        height: 2em;
+        background: transparent;
+        border: none;
+        outline: none;
+        border: 2px solid rgba(255, 255, 255, .2);
+        border-radius: 40px;
+        color: white;
+        padding: 1em 2em 1em 1em;
+    }
+
+    .btn {
+        width: 33%;
+        height: 2em;
+        background: #fc851d;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
+        transition: 300ms;
+        cursor:pointer;
+    }
+
+    .btn:hover {
+        background: white;
+        color: #fc851d;
+    }
+
+</style>
+
+<div class="wrapper">
+    <div class="sidebar-wrapper">
+        <button class="tablinks" onclick="openTab(event, 'Profile')">Profile</button>
+        <button class="tablinks" onclick="openTab(event, 'Settings')">Settings</button>
+        <button class="tablinks" onclick="openTab(event, 'Messages')">Messages</button>
+    </div>
+
+    <p class="profile-name-header">Hello, <span id="profileName"><%= profileName %></span></p>
+
+    <div class="content-wrapper">
+        <div id="Profile" class="content-section active">
+            <form id="fileUploadForm" action="/ProfileInfo" method="PUT">
+                <input type="text" name="username" id="username" class="profileInput" placeholder="Username">
+
+                <br>
+                <br>
+
+                <input type="text" name="firstname" id="firstname" class="profileInput" placeholder="First Name">
+                <input type="text" name="lastname" id="lastname" class="profileInput" placeholder="Last Name">
+
+                <br>
+                <br>
+
+                <input type="text" name="email" id="email" class="profileInput" placeholder="Email">
+
+                <br>
+                <br>
+
+                <input type="text" name="addrLine1" id="addrLine1" class="profileInput" placeholder="Address Line 1">
+                <input type="text" name="addrLine2" id="addrLine2" class="profileInput" placeholder="Address Line 2">
+                <input type="text" name="addrLine3" id="addrLine3" class="profileInput" placeholder="Address Line 3">
+                <br>
+                <input type="text" name="city" id="" class="profileInput" placeholder="City/Town">
+                <input type="text" name="state" id="" class="profileInput" placeholder="State">
+
+                <br>
+                <br>
+
+                <button type="submit" class="btn">Save Changes</button>
+            </form>
+        </div>
+
+        <div id="Settings" class="content-section">
+        </div>
+
+        <div id="Messages" class="content-section">
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, contentSections, tablinks;
+        
+        contentSections = document.getElementsByClassName("content-section");
+        for (i = 0; i < contentSections.length; i++) {
+            contentSections[i].style.display = "none";
+            contentSections[i].classList.remove("active");
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.className += " active";
+    }
+</script>

@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const { User } = require(path.join(__dirname, '../models/schemas.js'));
 
-// Configure the local strategy for use by Passport
 passport.use(new LocalStrategy(
     async (username, password, done) => {
         try {
@@ -26,12 +25,10 @@ passport.use(new LocalStrategy(
     }
 ));
 
-// Serialize user into the session
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-// Deserialize user from the session
 passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     done(null, user);
