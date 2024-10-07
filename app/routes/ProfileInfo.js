@@ -13,23 +13,28 @@ router.post('/', async (req, res) => {
 
         const existingUsername = await User.findOne({
             username: username,
-            _id: { $ne: user._id }  // Exclude the current user
+            _id: { $ne: user._id }
+        });
+        
+        const existingEmail = await User.findOne({
+            email: email,
+            _id: { $ne: user._id }
         });
         
         if (existingUsername) {
             return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Username already in use" });
         }
-        
-        const existingEmail = await User.findOne({
-            email: email,
-            _id: { $ne: user._id }  // Exclude the current user
-        });
-        
-        if (existingEmail) {
+        else if (existingEmail) {
             return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Email already in use" });
         }
+        else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){
+            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Invalid email" });
+        }
+        else if (username.length < 8) {
+            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Username must be at least 8 characters" });
+        }
 
-        // Update the user details
+
         const result = await User.updateOne(
             { username: req.session.user.username },
             {
