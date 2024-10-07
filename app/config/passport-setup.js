@@ -18,6 +18,7 @@ passport.use(new LocalStrategy(
             if (!isMatch) {
                 return done(null, false, { message: 'Username or password invalid' });
             }
+
             return done(null, user);
         } catch (error) {
             return done(error);
