@@ -106,33 +106,34 @@
         <button class="tablinks" onclick="openTab(event, 'Messages')">Messages</button>
     </div>
 
-    <p class="profile-name-header">Hello, <span id="profileName"><%= profileName %></span></p>
+    <p class="profile-name-header">Hello, <span id="profileName"><%= userInfo.username %></span></p>
+    <p><%= err %></p>
 
     <div class="content-wrapper">
         <div id="Profile" class="content-section active">
             <form id="fileUploadForm" action="/ProfileInfo" method="POST">
-                <input type="text" name="username" id="username" class="profileInput" placeholder="Username">
+                <input type="text" name="username" id="username" class="profileInput" value="<%= userInfo.username %>">
 
                 <br>
                 <br>
 
-                <input type="text" name="firstname" id="firstname" class="profileInput" placeholder="First Name">
-                <input type="text" name="lastname" id="lastname" class="profileInput" placeholder="Last Name">
+                <input type="text" name="firstname" id="firstname" class="profileInput" value="<%= userInfo.personal.firstname %>" placeholder="First Name">
+                <input type="text" name="lastname" id="lastname" class="profileInput" value="<%= userInfo.personal.lastname %>" placeholder="Last Name">
 
                 <br>
                 <br>
 
-                <input type="text" name="email" id="email" class="profileInput" placeholder="Email">
+                <input type="text" name="email" id="email" class="profileInput" value="<%= userInfo.email %>" placeholder="Email">
 
                 <br>
                 <br>
 
-                <input type="text" name="addrLine1" id="addrLine1" class="profileInput" placeholder="Address Line 1">
-                <input type="text" name="addrLine2" id="addrLine2" class="profileInput" placeholder="Address Line 2">
-                <input type="text" name="addrLine3" id="addrLine3" class="profileInput" placeholder="Address Line 3">
+                <input type="text" name="addrLine1" id="addrLine1" class="profileInput" value="<%= userInfo.address.address1 %>" placeholder="Address Line 1">
+                <input type="text" name="addrLine2" id="addrLine2" class="profileInput" value="<%= userInfo.address.address2 %>" placeholder="Address Line 2">
+                <input type="text" name="addrLine3" id="addrLine3" class="profileInput" value="<%= userInfo.address.address3 %>" placeholder="Address Line 3">
                 <br>
-                <input type="text" name="city" id="" class="profileInput" placeholder="City/Town">
-                <input type="text" name="state" id="" class="profileInput" placeholder="State">
+                <input type="text" name="city" id="" class="profileInput" value="<%= userInfo.address.city %>" placeholder="City/Town">
+                <input type="text" name="state" id="" class="profileInput" value="<%= userInfo.address.state %>" placeholder="State">
 
                 <br>
                 <br>

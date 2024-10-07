@@ -19,18 +19,16 @@ router.post('/', (req, res, next) => {
             return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: info.message });
         }
 
-        // Log the user in and redirect to profile
         req.login(user, (err) => {
             if (err) {
                 return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'An error occurred during login' });
             }
-            // Successful login, redirect to profile page
             req.session.user = {
                 username: req.body.username
             }
-            res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { profileName: user.username });
+            res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { err: "", userInfo: user });
         });
-    })(req, res, next); // Call the function
+    })(req, res, next);
 });
 
 module.exports = router;
