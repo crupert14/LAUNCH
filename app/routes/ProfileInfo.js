@@ -48,8 +48,12 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    console.log(req.session.user);
-    res.render(path.join(__dirname, '../../app/views/Profile.ejs'));
+    if(req.session.isLoggedIn) {
+        res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {profileName: req.session.user.username});
+    }
+    else {
+        res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: "You need to login!"});
+    }
 });
 
 module.exports = router;
