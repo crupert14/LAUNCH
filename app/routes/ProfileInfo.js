@@ -36,6 +36,8 @@ router.post('/', async (req, res) => {
             }
         );
 
+        res.render(path.join(__dirname, '../../app/views/Profile.ejs'));
+
         if (result.matchedCount === 0) {
             res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: "Internal error"});
         }
