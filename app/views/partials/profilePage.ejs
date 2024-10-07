@@ -97,6 +97,9 @@
         color: #fc851d;
     }
 
+    #error-message {
+        color: red;
+    }
 </style>
 
 <div class="wrapper">
@@ -107,10 +110,12 @@
     </div>
 
     <p class="profile-name-header">Hello, <span id="profileName"><%= userInfo.username %></span></p>
-    <p><%= err %></p>
+
+    <br>
 
     <div class="content-wrapper">
         <div id="Profile" class="content-section active">
+            <p id="error-message"><%= err %></p>
             <form id="fileUploadForm" action="/ProfileInfo" method="POST">
                 <input type="text" name="username" id="username" class="profileInput" value="<%= userInfo.username %>">
 
