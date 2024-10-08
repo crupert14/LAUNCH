@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-        console.log(user);
         if (err) {
             console.log(err);
             return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: 'An error occurred during authentication', active: req.session.isLoggedIn });
