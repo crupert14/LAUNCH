@@ -114,7 +114,18 @@ router.post('/', async (req, res) => {
                     password: hashedPassword,
                     email: email,
                     active: false,
-                    token: confToken
+                    token: confToken,
+                    address: {
+                        address1: "",
+                        address2: "",
+                        address3: "",
+                        city: "",
+                        state: ""
+                    },
+                    personal: {
+                        firstname: "",
+                        lastname: ""
+                    }
                 })
             })
 

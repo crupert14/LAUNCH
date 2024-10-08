@@ -29,6 +29,7 @@ router.post('/', (req, res, next) => {
                 sessionName: new Date() + " " + req.body.username // Custom session property
             }
             req.session.isLoggedIn = true;
+            console.log(user);
             res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { err: "", userInfo: user, active: req.session.isLoggedIn });
         });
     })(req, res, next);
