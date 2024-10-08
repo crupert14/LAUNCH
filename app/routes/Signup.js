@@ -146,7 +146,7 @@ router.post('/', async (req, res) => {
                 message = "Invalid email format!";
                 break;
             case 3:
-                message = "Username must be at least six character!";
+                message = "Username must be at least eight character!";
                 break;
             case 4:
                 message = "Username already in use!";

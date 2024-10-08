@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require(path.join(__dirname, '../models/schemas.js')); // Assuming you have a User model
 
 router.get('/', (req, res) => {
-    res.render(path.join(__dirname, '../../app/views/Confirmation.ejs'), { err: "" });
+    res.render(path.join(__dirname, '../../app/views/Confirmation.ejs'), { err: "", active: false });
 });
 
 router.post('/', async (req, res) => {
