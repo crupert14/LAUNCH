@@ -8,10 +8,10 @@ router.get('/', (req, res) => {
     const user = User.findOne({ username: req.session.user.username })
 
     if(req.session.isLoggedIn) {
-        res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {userInfo: user, err: ""});
+        res.render(path.join(__dirname, '../../app/views/Profile.ejs'), {userInfo: user, err: "", active: req.session.isLoggedIn});
     }
     else {
-        res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: "You need to login!"});
+        res.render(path.join(__dirname, '../../app/views/Login.ejs'), {err: "You need to login!", active: req.session.isLoggedIn});
     }
 })
 

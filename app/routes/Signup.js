@@ -62,7 +62,7 @@ const genString = () => {
 }
 
 router.get('/', (req, res) => {
-    res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: ""});
+    res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: "", active: req.session.isLoggedIn});
 })
 
 router.post('/', async (req, res) => {
@@ -132,7 +132,7 @@ router.post('/', async (req, res) => {
 
             await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
-            res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: "Verify your email to sign in!"});
+            res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: "Verify your email to sign in!", active: req.session.isLoggedIn});
         }
 
     }
@@ -168,7 +168,7 @@ router.post('/', async (req, res) => {
                 console.log(err);
                 break;
         }
-        res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: message});
+        res.render(path.join(__dirname, '../../app/views/Signup.ejs'), {err: message, active: req.session.isLoggedIn});
     }
 
 })

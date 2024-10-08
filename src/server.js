@@ -59,7 +59,8 @@ const ProfileRoute = require(path.join(__dirname, '../app/routes/Profile'));
 const ConfirmationRoute = require(path.join(__dirname, '../app/routes/Confirmation'));
 
 //Profile Page
-const ProfileInfoRoute = require(path.join(__dirname, '../app/routes/ProfileInfo'))
+const ProfileInfoRoute = require(path.join(__dirname, '../app/routes/ProfileInfo'));
+const LogoutRoute = require(path.join(__dirname, '../app/routes/Logout'));
 
 //Navbar
 app.use('/Signup', SignupRoute);
@@ -75,11 +76,12 @@ app.use('/Confirmation', ConfirmationRoute);
 
 //Profile Page
 app.use('/ProfileInfo', ProfileInfoRoute);
+app.use('/Logout', LogoutRoute);
 
 const server = app.listen(port, () => {
     console.log("Server listening on port " + port);
 });
 
 app.get('/', (req, res) => {
-    res.render(path.join(__dirname, '../app/views/home.ejs'));
+    res.render(path.join(__dirname, '../app/views/Home.ejs'), { active: req.session.isLoggedIn });
 });

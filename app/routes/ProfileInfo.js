@@ -12,10 +12,10 @@ router.post('/', async (req, res) => {
     try {
         
         if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){
-            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Invalid email" });
+            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Invalid email", active: req.session.isLoggedIn });
         }
         if (username.length < 8) {
-            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Username must be at least 8 characters" });
+            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Username must be at least 8 characters", active: req.session.isLoggedIn });
         }
 
         const existingUsername = await User.findOne({
@@ -29,10 +29,10 @@ router.post('/', async (req, res) => {
         });
 
         if (existingUsername) {
-            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Username already in use" });
+            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Username already in use", active: req.session.isLoggedIn });
         }
         if (existingEmail) {
-            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Email already in use" });
+            return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: user, err: "Email already in use", active: req.session.isLoggedIn });
         }
 
         const result = await User.updateOne(
@@ -56,22 +56,22 @@ router.post('/', async (req, res) => {
         req.session.user.username = username;
 
         if (result.matchedCount === 0) {
-            return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Internal error" });
+            return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Internal error", active: req.session.isLoggedIn });
         }
 
         // Re-render profile page with updated info
-        return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: await User.findOne({ username: req.session.user.username }), err: null });
+        return res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { userInfo: await User.findOne({ username: req.session.user.username }), err: null, active: req.session.isLoggedIn });
 
     } catch (err) {
-        return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Internal error" });
+        return res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Internal error", active: req.session.isLoggedIn });
     }
 });
 
 router.get('/', (req, res) => {
     if (req.session.isLoggedIn) {
-        res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { profileName: req.session.user.username });
+        res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { profileName: req.session.user.username, active: req.session.isLoggedIn });
     } else {
-        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "You need to login!" });
+        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "You need to login!", active: req.session.isLoggedIn });
     }
 });
 

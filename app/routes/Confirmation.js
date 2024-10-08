@@ -29,10 +29,10 @@ router.post('/', async (req, res) => {
         await user.save();
 
         // Render a success message or redirect to login
-        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Your account has been verified! You can now log in." });
+        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Your account has been verified! You can now log in.", active: req.session.isLoggedIn });
     } catch (err) {
         console.log("Error: " + err);
-        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Token invalid!" });
+        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Token invalid!", active: req.session.isLoggedIn });
     }
 });
 module.exports = router;
