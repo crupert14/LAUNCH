@@ -16,7 +16,8 @@
         width: 35em;
         background: transparent;
         border: 0.25em solid rgba(255, 255, 255, .2);
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px); /* Adds the blur effect */
+        -webkit-backdrop-filter: blur(20px);
         box-shadow: 0 0 0.5em rgba(0,0,0,.2);
         color: white;
         border-radius: 10px;
@@ -81,7 +82,7 @@
         border-radius: 2em;
         transition: width 0.5s ease, background-color 0.5s ease;
     }  
-    
+
     @media (max-width: 768px) {
         .wrapper {
             width: 80%; /* Set to 80% on mobile */
