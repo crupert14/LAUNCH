@@ -68,10 +68,15 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    if (req.session.isLoggedIn) {
-        res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { profileName: req.session.user.username, active: req.session.isLoggedIn });
-    } else {
-        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "You need to login!", active: req.session.isLoggedIn });
+    try {
+        if (req.session.isLoggedIn) {
+            res.render(path.join(__dirname, '../../app/views/Profile.ejs'), { profileName: req.session.user.username, active: req.session.isLoggedIn });
+        } else {
+            res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "You need to login!", active: req.session.isLoggedIn });
+        }
+    }
+    catch(err) {
+        res.render(path.join(__dirname, '../../app/views/Login.ejs'), { err: "Internal error", active: req.session.isLoggedIn });
     }
 });
 
