@@ -68,6 +68,98 @@
         width: 100em;
     }
 
+    /* Small mobile phones */
+    @media screen and (max-width: 480px) {
+        /* Adjust header logo size */
+        #header-logo {
+            width: 5em;
+        }
+
+        /* Stack the navigation links vertically */
+        #nav-link-list {
+            display: block;
+            text-align: center;
+        }
+
+        #nav-link-list > li {
+            float: none;
+            margin-right: 0;
+        }
+
+        table {
+            width: 100%;
+        }
+    }
+
+    /* Larger mobile phones and small tablets */
+    @media screen and (max-width: 768px) {
+        /* Make the header logo smaller */
+        #header-logo {
+            width: 6em;
+        }
+
+        /* Stack navigation links vertically for larger phones */
+        #nav-link-list {
+            text-align: center;
+        }
+
+        #nav-link-list > li {
+            float: none;
+            margin-right: 0;
+        }
+    }
+
+    /* Tablets and small screens in landscape */
+    @media screen and (max-width: 1024px) {
+        #header-logo {
+            width: 7em;
+        }
+
+        #nav-link-list {
+            text-align: center;
+        }
+
+        #nav-link-list > li {
+            float: none;
+            margin-right: 1em;
+        }
+    }
+
+    /* Laptops and small desktops */
+    @media screen and (min-width: 1025px) and (max-width: 1280px) {
+        /* Adjust logo and spacing for larger screens */
+        #header-logo {
+            width: 7.5em;
+        }
+
+        #nav-link-list > li {
+            margin-right: 1.5em;
+        }
+    }
+
+    /* Large desktops and 4K displays */
+    @media screen and (min-width: 1281px) {
+        /* Larger logo for larger screens */
+        #header-logo {
+            width: 10em;
+        }
+
+        #nav-link-list > li {
+            margin-right: 2em;
+        }
+    }
+
+    /* High-density screens (Retina) */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        /* Make sure the logo remains crisp on Retina screens */
+        #header-logo {
+            width: 7.5em;
+        }
+
+        #nav-link-list > li {
+            margin-right: 1.5em;
+        }
+    }
 </style>
 <header>
     <script src="https://kit.fontawesome.com/5f2f4f2ed0.js" crossorigin="anonymous"></script>
