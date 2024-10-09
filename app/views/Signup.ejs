@@ -8,9 +8,24 @@
     body {
         height: 100%;
         width: 100%;
-        background-color: black;
-        background-image: url("../assets/bgImage/bg.png");
+        background-color: black; /* Fallback background color */
+        background-image: url("../assets/bgImage/bg.png"); /* Default background for larger screens */
         background-size: cover;
+        background-position: center;
+    }
+    
+    /* Mobile background */
+    @media screen and (max-width: 768px) {
+        body {
+            background-image: url("../assets/bgImage/mobileBG.png"); /* Background for mobile */
+        }
+    }
+    
+    /* Tablet background */
+    @media screen and (max-width: 1024px) {
+        body {
+            background-image: url("../assets/bgImage/tabletBG.png"); /* Background for tablets */
+        }
     }
     .wrapper {
         width: 35em;
