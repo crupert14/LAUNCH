@@ -136,10 +136,9 @@ router.post('/', async (req, res) => {
 
             const emailText = `<h1> Verify your Launch! Account </h1>
             <p> Thank you for signing up! Before you can access your profile, please verify your email.</p>
-            <p> Below is your verification code (please copy the entire thing):</p>
-            <p><strong>${confToken}</strong></p> <!-- Display the actual token here -->
-            <p> To complete the verification, click the link below to enter your verification code:</p>
-            <p><a href="https://launchgummies.com/Confirmation"> Click here to verify! </a></p>`
+            <p> Below is your verification code (please copy the entire thing!):</p>
+            <p><strong>${confToken}</strong></p>
+            <p> To complete the verification, click <a href="https://launchgummies.com/Confirmation">here</a> </p>`
 
             await sendMail(email, "Confirm your Launch! Account", emailText).then(result => console.log('Email sent', result)).catch(err => console.log(err.message));
 
