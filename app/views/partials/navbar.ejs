@@ -20,15 +20,18 @@
 
     header {
         background: black;
+        position: relative;
+        z-index: 1000; /* Ensures the header is the top element */
     }
 
     #nav-link-list {
         list-style-type: none;
         font-size: 1em;
+        display: flex; /* Default to flex for larger screens */
+        justify-content: flex-end; /* Aligns the navbar to the right */
     }
 
     #nav-link-list > li {
-        float: right;
         margin-right: 1.5em;
         padding-top: 1em;
         transition: 300ms;
@@ -36,8 +39,8 @@
 
     #nav-link-list > li:hover {
         color: grey;
-        padding-top:1.5em;
-        transform:rotateX(20deg);
+        padding-top: 1.5em;
+        transform: rotateX(20deg);
         cursor: default;
     }
 
@@ -63,124 +66,146 @@
         vertical-align: top;
     }
 
-    #mainBg {
-        height: auto;
-        width: 100em;
+    /* Hamburger Icon */
+    .hamburger {
+        display: none; /* Hidden by default */
+        font-size: 2em;
+        cursor: pointer;
+        position: absolute;
+        top: 1em;
+        right: 1.5em;
+        padding: 1em;
     }
 
-    /* Small mobile phones */
-    @media screen and (max-width: 480px) {
-        /* Adjust header logo size */
-        #header-logo {
-            width: 5em;
-        }
-
-        /* Stack the navigation links vertically */
-        #nav-link-list {
-            display: block;
-            text-align: center;
-        }
-
-        #nav-link-list > li {
-            float: none;
-            margin-right: 0;
-        }
-
-        table {
-            width: 100%;
-        }
+    /* Dropdown background blur */
+    #nav-link-list.mobile {
+        display: none; /* Hidden by default on larger screens */
+        flex-direction: column;
+        position: absolute;
+        top: 6em;
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust position to center */
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        backdrop-filter: blur(10px); /* Adds the blur effect */
+        width: 75%; /* Set width to 75% of the viewport */
+        text-align: center;
+        z-index: 1001; /* Ensures the dropdown is on top */
+        border: 2px solid #fc851d80; /* Clear but blurry border */
+        border-radius: 15px; /* Rounded corners */
+        overflow: hidden; /* To ensure border-radius effect */
     }
-
-    /* Larger mobile phones and small tablets */
+    
+    /* When the dropdown is shown */
+    #nav-link-list.mobile.show {
+        display: flex; /* Show dropdown when toggled */
+    }
+    
+    /* Hamburger Icon - rotation */
+    .hamburger {
+        display: none; /* Hidden by default */
+        font-size: 2em;
+        cursor: pointer;
+        position: absolute;
+        top: 1em;
+        right: 1.5em;
+        padding: 1em;
+        transition: transform 0.3s; /* Smooth transition for rotation */
+    }
+    
+    /* Rotate hamburger when active */
+    .hamburger.rotate {
+        transform: rotate(90deg); /* Rotate 90 degrees when active */
+    }
+    
+    /* Mobile view: Show the hamburger and hide the navigation links */
     @media screen and (max-width: 768px) {
-        /* Make the header logo smaller */
+        .hamburger {
+            display: block; /* Show the hamburger icon */
+        }
+    
+        #nav-link-list {
+            display: none; /* Hide default navbar */
+        }
+    
         #header-logo {
             width: 6em;
         }
-
-        /* Stack navigation links vertically for larger phones */
-        #nav-link-list {
-            text-align: center;
-        }
-
-        #nav-link-list > li {
-            float: none;
-            margin-right: 0;
+    
+        #nav-link-list.mobile {
+            display: none; /* Ensure mobile navbar is hidden by default */
         }
     }
-
-    /* Tablets and small screens in landscape */
+    
+    /* Additional media queries for different device sizes */
     @media screen and (max-width: 1024px) {
         #header-logo {
             width: 7em;
         }
-
+    }
+    
+    @media screen and (min-width: 769px) {
         #nav-link-list {
-            text-align: center;
+            display: flex; /* Show inline on larger screens */
         }
-
-        #nav-link-list > li {
-            float: none;
-            margin-right: 1em;
-        }
-    }
-
-    /* Laptops and small desktops */
-    @media screen and (min-width: 1025px) and (max-width: 1280px) {
-        /* Adjust logo and spacing for larger screens */
-        #header-logo {
-            width: 7.5em;
-        }
-
-        #nav-link-list > li {
-            margin-right: 1.5em;
+    
+        .hamburger {
+            display: none; /* Hide hamburger on larger screens */
         }
     }
-
-    /* Large desktops and 4K displays */
+    
     @media screen and (min-width: 1281px) {
-        /* Larger logo for larger screens */
         #header-logo {
             width: 10em;
         }
-
-        #nav-link-list > li {
-            margin-right: 2em;
-        }
     }
-
-    /* High-density screens (Retina) */
+    
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        /* Make sure the logo remains crisp on Retina screens */
         #header-logo {
             width: 7.5em;
         }
-
-        #nav-link-list > li {
-            margin-right: 1.5em;
-        }
     }
 </style>
+
 <header>
     <script src="https://kit.fontawesome.com/5f2f4f2ed0.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital@0;1&display=swap" rel="stylesheet"/>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
     <nav>
         <table>
             <tr id="solo-row">
                 <td id="initial-cell">
-                    <img id="header-logo" src="../assets/logo/logoNoBG.png"/>
+                    <img id="header-logo" src="../assets/logo/logoNoBG.png" />
                 </td>
                 <td id="secondary-cell">
+                    <ul id="nav-link-list" class="mobile">
+                        <% if(active){ %>
+                            <li><a href="/Logout">Logout</a></li>
+                            <li><a href="/MyProfile">Profile</a></li>
+                        <% } else { %>  
+                            <li><a href="/Signup">Signup</a></li>
+                            <li><a href="/Login">Login</a></li>
+                        <% } %>
+                        <li><i class="fa-solid fa-grip-lines-vertical" style="color: #fc851d;"></i></li>
+                        <li><a href="/Contact">Contact</a></li>
+                        <li><a href="/Buy">Buy</a></li>
+                        <li><a href="/About">About</a></li>
+                        <li><a href="/">Home</a></li>
+                    </ul>
                     <ul id="nav-link-list">
                         <% if(active){ %>
                             <li><a href="/Logout">Logout</a></li>
                             <li><a href="/MyProfile">Profile</a></li>
-                          <% } else{ %>  
+                        <% } else { %>  
                             <li><a href="/Signup">Signup</a></li>
                             <li><a href="/Login">Login</a></li>
-                         <% } %>
+                        <% } %>
                         <li><i class="fa-solid fa-grip-lines-vertical" style="color: #fc851d;"></i></li>
                         <li><a href="/Contact">Contact</a></li>
                         <li><a href="/Buy">Buy</a></li>
@@ -192,3 +217,12 @@
         </table>
     </nav>
 </header>
+
+<script>
+    function toggleMenu() {
+        var nav = document.querySelector("#nav-link-list.mobile");
+        var hamburger = document.querySelector(".hamburger");
+        nav.classList.toggle("show");
+        hamburger.classList.toggle("rotate"); // Add/remove rotate class
+    }
+</script>

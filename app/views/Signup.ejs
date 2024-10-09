@@ -81,6 +81,22 @@
         border-radius: 2em;
         transition: width 0.5s ease, background-color 0.5s ease;
     }  
+    
+    @media (max-width: 768px) {
+        .wrapper {
+            width: 80%; /* Set to 80% on mobile */
+            height: auto; /* Allow height to adjust as needed */
+        }
+
+        .profileInput {
+            width: 100%; /* Full width on smaller devices */
+            margin: 0.5em 0; /* Space between inputs */
+        }
+        
+        .content-wrapper {
+            flex-direction: column; /* Stack inputs vertically */
+        }
+    }
 </style>
 <body>
     <%- include('./partials/navbar.ejs') %>

@@ -5,7 +5,7 @@
         background: transparent;
         border: 0.25em solid rgba(255, 255, 255, .2);
         backdrop-filter: blur(20px);
-        box-shadow: 0 0 0.5em rgba(0,0,0,.2);
+        box-shadow: 0 0 0.5em rgba(0, 0, 0, .2);
         color: white;
         border-radius: 10px;
         padding: 0;
@@ -53,6 +53,9 @@
     .content-wrapper {
         width: 80%;
         padding: 1.5em;
+        display: flex;
+        flex-wrap: wrap; /* Allows items to wrap */
+        justify-content: flex-start; /* Aligns items to the start */
     }
 
     .profile-name-header {
@@ -62,6 +65,7 @@
 
     .content-section {
         display: none;
+        width: 100%; /* Full width for content sections */
     }
 
     .content-section.active {
@@ -69,7 +73,7 @@
     }
 
     .profileInput {
-        width: 20%;
+        width: 30%; /* Set to 30% */
         height: 2em;
         background: transparent;
         border: none;
@@ -78,6 +82,7 @@
         border-radius: 40px;
         color: white;
         padding: 1em 2em 1em 1em;
+        margin: 0.5em; /* Space between inputs */
     }
 
     .btn {
@@ -89,7 +94,7 @@
         border-radius: 40px;
         box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
         transition: 300ms;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     .btn:hover {
@@ -100,8 +105,33 @@
     #error-message {
         color: red;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .profileInput {
+            width: 100%; /* Full width on smaller devices */
+            margin: 0.5em 0; /* Space between inputs */
+        }
+        
+        .btn {
+            width: 33%;
+            height: 3em;
+            background: #fc851d;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
+            transition: 300ms;
+            cursor: pointer;
+        }
+
+        .content-wrapper {
+            flex-direction: column; /* Stack inputs vertically */
+        }
+    }
 </style>
 
+<span class="profile-name-header">Hello, <span id="profileName"><%= userInfo.username %></span></span>
 <div class="wrapper">
     <div class="sidebar-wrapper">
         <button class="tablinks" onclick="openTab(event, 'Profile')">Profile</button>
@@ -109,8 +139,7 @@
         <button class="tablinks" onclick="openTab(event, 'Messages')">Messages</button>
     </div>
 
-    <p class="profile-name-header">Hello, <span id="profileName"><%= userInfo.username %></span></p>
-
+    <br>
     <br>
 
     <div class="content-wrapper">
@@ -136,9 +165,11 @@
                 <input type="text" name="addrLine1" id="addrLine1" class="profileInput" value="<%= userInfo.address.address1 %>" placeholder="Address Line 1">
                 <input type="text" name="addrLine2" id="addrLine2" class="profileInput" value="<%= userInfo.address.address2 %>" placeholder="Address Line 2">
                 <input type="text" name="addrLine3" id="addrLine3" class="profileInput" value="<%= userInfo.address.address3 %>" placeholder="Address Line 3">
+
                 <br>
-                <input type="text" name="city" id="" class="profileInput" value="<%= userInfo.address.city %>" placeholder="City/Town">
-                <input type="text" name="state" id="" class="profileInput" value="<%= userInfo.address.state %>" placeholder="State">
+
+                <input type="text" name="city" class="profileInput" value="<%= userInfo.address.city %>" placeholder="City/Town">
+                <input type="text" name="state" class="profileInput" value="<%= userInfo.address.state %>" placeholder="State">
 
                 <br>
                 <br>
