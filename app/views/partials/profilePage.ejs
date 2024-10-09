@@ -13,6 +13,7 @@
         margin: auto;
         display: flex;
         box-sizing: border-box;
+        overflow:scroll;
     }
 
     .sidebar-wrapper {
@@ -87,8 +88,8 @@
     }
 
     .btn {
-        width: 33%;
-        height: 2em;
+        width: 33%; /* Percentage-based width */
+        height: 2.5em;
         background: #fc851d;
         border: none;
         outline: none;
@@ -110,24 +111,28 @@
     /* Responsive adjustments */
     @media (max-width: 768px) {
         .profileInput {
-            width: 100%; /* Full width on smaller devices */
+            width: 80%; /* Full width on smaller devices */
             margin: 0.5em 0; /* Space between inputs */
         }
-        
+
         .btn {
-            width: 33%;
-            height: 3em;
-            background: #fc851d;
-            border: none;
-            outline: none;
-            border-radius: 40px;
-            box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
-            transition: 300ms;
-            cursor: pointer;
+            width: 80%; /* Button width matches input width */
+            height: 3em; /* Taller button for better tap targets */
         }
 
         .content-wrapper {
             flex-direction: column; /* Stack inputs vertically */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .profileInput {
+            width: 100%; /* Full width for mobile devices */
+            margin: 0.5em 0; /* Maintain spacing */
+        }
+
+        .btn {
+            width: 100%; /* Full width for button on mobile */
         }
     }
 </style>
