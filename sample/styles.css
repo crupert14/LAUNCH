@@ -1,0 +1,262 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Montserrat:wght@400;700&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Navigation */
+/* Navigation */
+header {
+    background-color: #000;
+    padding: 20px;
+    position: fixed; /* Change to fixed to keep it at the top */
+    top: 0; /* Ensure it is at the very top */
+    left: 0; /* Align with the left edge */
+    right: 0; /* Align with the right edge */
+    z-index: 10; /* Ensure header is above other content */
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Ensure positioning context for absolute elements */
+}
+
+nav .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #fc851d;
+    font-size: 32px;
+}
+
+nav .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    border-radius: 25px; /* Rounded corners */
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative; /* Allow stacking above other content */
+    z-index: 20; /* Higher z-index to ensure it stays above other elements */
+    padding: 10px 15px; /* Add padding for a better button size */
+    transition: background-color 0.3s, color 0.3s; /* Add transition for hover effects */
+}
+
+nav .hamburger:hover { /* Change background on hover */
+    color: #fc851d; /* Change text color on hover */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    z-index: 10; /* Ensure links are below the hamburger */
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: #fc851d;
+}
+
+/* Hero Section */
+.hero {
+    background: url('hero-image.jpg') center center/cover no-repeat;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 0; /* Ensure hero section is below the nav */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+}
+
+.hero-text {
+    z-index: 1;
+}
+
+.hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 60px;
+    margin: 0;
+}
+
+.cta-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #fc851d;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cta-btn:hover {
+    background-color: #fc851d;
+}
+
+/* Product Grid */
+.products {
+    padding: 50px;
+    text-align: center;
+}
+
+.products h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.product-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.product {
+    text-align: center;
+}
+
+.product img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.product p {
+    margin-top: 10px;
+    font-family: 'Lato', sans-serif;
+}
+
+.product:hover img {
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav .hamburger {
+        display: block; /* Show hamburger menu on mobile */
+    }
+
+    nav ul {
+        display: none; /* Hide the nav links initially */
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        background-color: #000;
+        position: absolute;
+        top: 70px; /* Position below the nav */
+        left: 0;
+        padding: 20px 0; /* Padding for the dropdown */
+        z-index: 5; /* Ensure dropdown stays below the hamburger */
+    }
+
+    nav ul.active {
+        display: flex; /* Show links when active */
+    }
+
+    nav ul li a {
+        font-size: 16px;
+    }
+
+    .hero {
+        height: 300px; /* Reduced height for mobile */
+    }
+
+    .hero h1 {
+        font-size: 36px; /* Smaller font size */
+    }
+
+    .cta-btn {
+        padding: 10px 20px; /* Smaller button */
+        font-size: 16px;
+    }
+
+    .products {
+        padding: 30px;
+    }
+
+    .products h2 {
+        font-size: 28px; /* Smaller heading */
+    }
+
+    .product-grid {
+        flex-direction: column; /* Stack products vertically */
+        align-items: center;
+    }
+
+    .product img {
+        width: 150px; /* Smaller images */
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav .logo {
+        font-size: 24px; /* Smaller logo */
+    }
+
+    .hero {
+        height: 200px; /* Further reduced height for mobile */
+    }
+
+    .hero h1 {
+        font-size: 28px; /* Smaller font size */
+    }
+
+    .cta-btn {
+        padding: 8px 16px; /* Smaller button */
+        font-size: 14px;
+    }
+
+    .products {
+        padding: 20px; /* Reduced padding */
+    }
+
+    .products h2 {
+        font-size: 24px; /* Smaller heading */
+    }
+}

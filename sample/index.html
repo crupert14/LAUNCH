@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Supplements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for Hamburger Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">LAUNCH GUMMIES</div>
+            <button class="hamburger" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Buy</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><i class="fa-solid fa-grip-lines-vertical" style="color: #fc851d;"></i></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Fuel Your Fitness Journey</h1>
+            <a href="#" class="cta-btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="products">
+        <h2>Our Bestsellers</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="product1.jpg" alt="Product 1">
+                <p>Product 1</p>
+            </div>
+            <div class="product">
+                <img src="product2.jpg" alt="Product 2">
+                <p>Product 2</p>
+            </div>
+            <div class="product">
+                <img src="product3.jpg" alt="Product 3">
+                <p>Product 3</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 WorkoutSupps. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript to toggle the mobile menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
