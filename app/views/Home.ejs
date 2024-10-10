@@ -1,98 +1,143 @@
 <head>
     <title>LAUNCH! Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Montserrat:wght@400;700&display=swap');
-    body {
-        height: 100%;
-        width: 100%;
-        background-color: black; /* Fallback background color */
-        background-image: url("../assets/bgImage/bg.png"); /* Default background for larger screens */
-        background-size: cover;
-        background-position: center;
-        overflow: hidden;
-    }
-    
-    .hero {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        text-align: center;
-        position: relative;
-        z-index: 0; /* Ensure hero section is below the nav */
-        margin-top: -15vh;
-    }
-    
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.727); /* Dark overlay */
-    }
-    
-    .hero-text {
-        z-index: 1;
-    }
-    
-    .hero h1 {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 60px;
-        margin: 0;
-    }
-    
-    .cta-btn {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 15px 30px;
-        background-color: #fc851d;
-        color: #fff;
-        text-decoration: none;
-        font-size: 18px;
-        font-family: 'Montserrat', sans-serif;
-    }
-    
-    .cta-btn:hover {
-        background-color: #fc851d;
-    }
-
-    /* Mobile background */
-    @media screen and (max-width: 768px) {
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Montserrat:wght@400;700&display=swap');
+        
         body {
-            background-image: url("../assets/bgImage/mobileBG.png"); /* Background for mobile */
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #fff;
         }
-    }
-    
-    /* Tablet background */
-    @media screen and (max-width: 1024px) {
-        body {
-            background-image: url("../assets/bgImage/tabletBG.png"); /* Background for tablets */
+        
+        .hero {
+            background: rgb(255, 255, 255);
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            z-index: 0; /* Ensure hero section is below the nav */
         }
-    }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+        }
+        
+        .hero-text {
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 60px;
+            margin: 0;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #fc851d;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .cta-btn:hover {
+            background-color: #fc851d;
+        }
 
-    @media screen and (min-width: 769px) {
+        .products {
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .products h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        
+        .product-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        
+        .product {
+            text-align: center;
+        }
+        
+        .product img {
+            width: 200px;
+            height: 200px;
+            background-size: contain;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .product p {
+            margin-top: 10px;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .product:hover img {
+            transform: scale(1.05);
+        }
 
-    }
-
-    @media screen and (min-width: 1281px) {
-    
-    }
-
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-
-    }
+        /* Mobile background */
+        @media (max-width: 768px) {
+            .product-grid {
+                flex-direction: column; /* Stack items vertically */
+                align-items: center; /* Center items horizontally */
+            }
+        }
+        
+        /* Tablet background */
+        @media screen and (max-width: 1024px) {
+            
+        }
     </style>
+</head>
 <body>
     <%- include('./partials/navbar.ejs') %>
+
     <section class="hero">
         <div class="hero-text">
             <h1>Fuel Your Fitness Journey</h1>
             <a href="/Buy" class="cta-btn">Shop Now</a>
         </div>
     </section>
+
+    <section class="products">
+        <h2>Our Bestsellers</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="https://i.imgur.com/Y0KIOeB.png" alt="Product 1">
+                <p>Coming Soon...</p>
+            </div>
+            <div class="product">
+                <img src="https://i.imgur.com/Y0KIOeB.png" alt="Product 2">
+                <p>Coming Soon...</p>
+            </div>
+            <div class="product">
+                <img src="https://i.imgur.com/Y0KIOeB.png" alt="Product 3">
+                <p>Coming Soon...</p>
+            </div>
+        </div>
+    </section>
+
+    <%- include('./partials/footer.ejs') %>
 </body>

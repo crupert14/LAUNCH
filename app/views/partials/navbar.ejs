@@ -1,230 +1,133 @@
 <style>
-    .raleway {
-        font-family: "Raleway", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 400;
-        font-style: normal;
-    } 
-
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: "Raleway";
-        color: white;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Montserrat:wght@400;700&display=swap');
 
     header {
-        background: transparent;
-       
-        position: relative;
-        z-index: 1000; /* Ensures the header is the top element */
+        background-color: #000;
+        padding: 20px;
+        position: fixed; /* Change to fixed to keep it at the top */
+        top: 0; /* Ensure it is at the very top */
+        left: 0; /* Align with the left edge */
+        right: 0; /* Align with the right edge */
+        z-index: 10; /* Ensure header is above other content */
+        font-family: 'Montserrat', sans-serif;
     }
-
-    #nav-link-list {
-        list-style-type: none;
-        font-size: 1em;
-        display: flex; /* Default to flex for larger screens */
-        justify-content: flex-end; /* Aligns the navbar to the right */
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative; /* Ensure positioning context for absolute elements */
     }
-
-    #nav-link-list > li {
-        margin-right: 1.5em;
-        padding-top: 1em;
-        transition: 300ms;
+    
+    nav .logo {
+        font-family: 'Bebas Neue', sans-serif;
+        color: #fc851d;
+        font-size: 32px;
     }
-
-    #nav-link-list > li:hover {
-        color: grey;
-        padding-top: 1.5em;
-        transform: rotateX(20deg);
-        cursor: default;
-    }
-
-    #header-logo {
-        height: auto;
-        width: 7.5em;
-        padding-left: 1em;
-        padding-top: 1em;
-    }
-
-    table {
-        width: 100%;
-        height: 15%;
-        cursor: default;
-    }
-
-    #initial-cell {
-        width: 15%;
-    }
-
-    #secondary-cell {
-        width: 85%;
-        vertical-align: top;
-    }
-
-    /* Hamburger Icon */
-    .hamburger {
-        display: none; /* Hidden by default */
-        font-size: 2em;
+    
+    nav .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        border-radius: 25px; /* Rounded corners */
+        color: #fff;
+        font-size: 24px;
         cursor: pointer;
-        position: absolute;
-        top: 1em;
-        right: 1.5em;
-        padding: 1em;
+        position: relative; /* Allow stacking above other content */
+        z-index: 20; /* Higher z-index to ensure it stays above other elements */
+        padding: 10px 15px; /* Add padding for a better button size */
+        transition: background-color 0.3s, color 0.3s; /* Add transition for hover effects */
+    }
+    
+    nav .hamburger:hover { /* Change background on hover */
+        color: #fc851d; /* Change text color on hover */
+    }
+    
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        z-index: 10; /* Ensure links are below the hamburger */
+    }
+    
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    nav ul li a:hover {
+        color: #fc851d;
     }
 
-    /* Dropdown background blur */
-    #nav-link-list.mobile {
-        display: none; /* Hidden by default on larger screens */
-        flex-direction: column;
-        position: absolute;
-        top: 6em;
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Adjust position to center */
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-        backdrop-filter: blur(10px); /* Adds the blur effect */
-        -webkit-backdrop-filter: blur(10px); /* Adds the blur effect */
-        width: 75%; /* Set width to 75% of the viewport */
-        text-align: center;
-        z-index: 1001; /* Ensures the dropdown is on top */
-        border: 2px solid #fc851d80; /* Clear but blurry border */
-        border-radius: 15px; /* Rounded corners */
-        overflow: hidden; /* To ensure border-radius effect */
-    }
-    
-    /* When the dropdown is shown */
-    #nav-link-list.mobile.show {
-        display: flex; /* Show dropdown when toggled */
-    }
-    
-    /* Hamburger Icon - rotation */
-    .hamburger {
-        display: none; /* Hidden by default */
-        font-size: 2em;
-        cursor: pointer;
-        position: absolute;
-        top: 1em;
-        right: 1.5em;
-        padding: 1em;
-        transition: transform 0.3s; /* Smooth transition for rotation */
-    }
-    
-    /* Rotate hamburger when active */
-    .hamburger.rotate {
-        transform: rotate(90deg); /* Rotate 90 degrees when active */
-    }
-    
-    /* Mobile view: Show the hamburger and hide the navigation links */
-    @media screen and (max-width: 768px) {
-        .hamburger {
-            display: block; /* Show the hamburger icon */
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
         }
     
-        #nav-link-list {
-            display: none; /* Hide default navbar */
+        nav .hamburger {
+            display: block; /* Show hamburger menu on mobile */
         }
     
-        #header-logo {
-            width: 6em;
+        nav ul {
+            display: none; /* Hide the nav links initially */
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+            background-color: #000;
+            position: absolute;
+            top: 70px; /* Position below the nav */
+            left: 0;
+            padding: 20px 0; /* Padding for the dropdown */
+            z-index: 5; /* Ensure dropdown stays below the hamburger */
         }
     
-        #nav-link-list.mobile {
-            display: none; /* Ensure mobile navbar is hidden by default */
+        nav ul.active {
+            display: flex; /* Show links when active */
+        }
+    
+        nav ul li a {
+            font-size: 16px;
         }
     }
     
-    /* Additional media queries for different device sizes */
-    @media screen and (max-width: 1024px) {
-        #header-logo {
-            width: 7em;
-        }
-    }
-    
-    @media screen and (min-width: 769px) {
-        #nav-link-list {
-            display: flex; /* Show inline on larger screens */
-        }
-    
-        .hamburger {
-            display: none; /* Hide hamburger on larger screens */
-        }
-    }
-    
-    @media screen and (min-width: 1281px) {
-        #header-logo {
-            width: 10em;
-        }
-    }
-    
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        #header-logo {
-            width: 7.5em;
+    @media (max-width: 480px) {
+        nav .logo {
+            font-size: 24px; /* Smaller logo */
         }
     }
 </style>
-
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <header>
-    <script src="https://kit.fontawesome.com/5f2f4f2ed0.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital@0;1&display=swap" rel="stylesheet"/>
-
-    <!-- Hamburger Icon -->
-    <div class="hamburger" onclick="toggleMenu()">
-        <i class="fa-solid fa-bars"></i>
-    </div>
-
     <nav>
-        <table>
-            <tr id="solo-row">
-                <td id="initial-cell">
-                    <img id="header-logo" src="../assets/logo/logoNoBG.png" />
-                </td>
-                <td id="secondary-cell">
-                    <ul id="nav-link-list" class="mobile">
-                        <% if(active){ %>
-                            <li><a href="/Logout">Logout</a></li>
-                            <li><a href="/MyProfile">Profile</a></li>
-                        <% } else { %>  
-                            <li><a href="/Signup">Signup</a></li>
-                            <li><a href="/Login">Login</a></li>
-                        <% } %>
-                        <li><i class="fa-solid fa-grip-lines-vertical" style="color: #fc851d;"></i></li>
-                        <li><a href="/Contact">Contact</a></li>
-                        <li><a href="/Buy">Buy</a></li>
-                        <li><a href="/About">About</a></li>
-                        <li><a href="/">Home</a></li>
-                    </ul>
-                    <ul id="nav-link-list">
-                        <% if(active){ %>
-                            <li><a href="/Logout">Logout</a></li>
-                            <li><a href="/MyProfile">Profile</a></li>
-                        <% } else { %>  
-                            <li><a href="/Signup">Signup</a></li>
-                            <li><a href="/Login">Login</a></li>
-                        <% } %>
-                        <li><i class="fa-solid fa-grip-lines-vertical" style="color: #fc851d;"></i></li>
-                        <li><a href="/Contact">Contact</a></li>
-                        <li><a href="/Buy">Buy</a></li>
-                        <li><a href="/About">About</a></li>
-                        <li><a href="/">Home</a></li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        <div class="logo">LAUNCH GUMMIES</div>
+        <button class="hamburger" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/Buy">Buy</a></li>
+            <li><a href="/About">About</a></li>
+            <li><a href="/Contact">Contact</a></li>
+            <li><i class="fa-solid fa-grip-lines-vertical" style="color: #fc851d;"></i></li>
+            <% if(active){ %>
+                <li><a href="/MyProfile">Profile</a></li>
+                <li><a href="/Logout">Logout</a></li>
+            <% } else { %>
+                <li><a href="/Login">Login</a></li>
+                <li><a href="/Signup">Signup</a></li>
+            <% } %>
+        </ul>
     </nav>
 </header>
-
 <script>
-    function toggleMenu() {
-        var nav = document.querySelector("#nav-link-list.mobile");
-        var hamburger = document.querySelector(".hamburger");
-        nav.classList.toggle("show");
-        hamburger.classList.toggle("rotate"); // Add/remove rotate class
-    }
+    // JavaScript to toggle the mobile menu
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
 </script>

@@ -4,7 +4,9 @@
     <link rel="preconnect" href="https://www.google.com">
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 </head>
+
 <style>
+    /* Base Styles */
     body {
         height: 100%;
         width: 100%;
@@ -13,27 +15,14 @@
         background-size: cover;
         background-position: center;
     }
-    
-    /* Mobile background */
-    @media screen and (max-width: 768px) {
-        body {
-            background-image: url("../assets/bgImage/mobileBG.png"); /* Background for mobile */
-        }
-    }
-    
-    /* Tablet background */
-    @media screen and (max-width: 1024px) {
-        body {
-            background-image: url("../assets/bgImage/tabletBG.png"); /* Background for tablets */
-        }
-    }
+
     .wrapper {
         width: 35em;
         background: transparent;
         border: 0.25em solid rgba(255, 255, 255, .2);
         backdrop-filter: blur(20px); /* Adds the blur effect */
         -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 0 0.5em rgba(0,0,0,.2);
+        box-shadow: 0 0 0.5em rgba(0, 0, 0, .2);
         color: white;
         border-radius: 10px;
         padding: 1.5em 1.75em;
@@ -45,7 +34,7 @@
         text-align: center;
     }
 
-    .wrapper .input-box {
+    .input-box {
         width: 100%;
         height: 3em;
         margin: 2em 0;
@@ -76,13 +65,15 @@
         border-radius: 40px;
         box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
         transition: 300ms;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     .wrapper .btn:hover {
         background: white;
         color: #fc851d;
     }
+
+    /* Password Strength Bar */
     #strength-bar {
         width: 100%;
         background-color: #e0e0e0;
@@ -93,45 +84,38 @@
 
     #strength-level {
         width: 0%;
-        height: 2em;
+        height: 10px; /* Adjusted height to match inline style */
         border-radius: 2em;
         transition: width 0.5s ease, background-color 0.5s ease;
-    }  
+        background-color: grey; /* Moved from inline style */
+    }
 
-    
-    /* Tablet background */
+    /* Media Queries */
+    @media screen and (max-width: 768px) {
+        body {
+            background-image: url("../assets/bgImage/mobileBG.png"); /* Background for mobile */
+        }
+
+        .wrapper {
+            width: 80%; /* Set to 80% on mobile */
+            height: auto; /* Allow height to adjust as needed */
+        }
+    }
+
     @media screen and (max-width: 1024px) {
         body {
             background-image: url("../assets/bgImage/tabletBG.png"); /* Background for tablets */
         }
     }
-
-    @media (max-width: 768px) {
-        body {
-            background-image: url("../assets/bgImage/mobileBG.png"); /* Background for mobile */
-        }
-        
-        .wrapper {
-            width: 80%; /* Set to 80% on mobile */
-            height: auto; /* Allow height to adjust as needed */
-        }
-
-        .profileInput {
-            width: 100%; /* Full width on smaller devices */
-            margin: 0.5em 0; /* Space between inputs */
-        }
-        
-        .content-wrapper {
-            flex-direction: column; /* Stack inputs vertically */
-        }
-    }
 </style>
+
 <body>
     <%- include('./partials/navbar.ejs') %>
     <div class="wrapper">
         <form action="/Signup" method="POST" id="signup-form">
             <h1>Join the future!</h1>
             <span id="err-box"><%= err %></span>
+
             <div class="input-box">
                 <input type="text" placeholder="Username" name="user" required>
             </div>
@@ -147,85 +131,78 @@
 
             <p>Password strength: <span id="password-strength">Enter a password</span></p>
             <div id="strength-bar">
-                <div id="strength-level" style="width: 0%; height: 10px; background-color: grey;"></div>
+                <div id="strength-level"></div>
             </div>
 
             <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-
             <button type="submit" class="btn g-recaptcha" data-sitekey="6Lf4K1YqAAAAANnHm3Fx82rERMw_GrNipnt1Vyfv" data-action="submit" onclick="onClick(event)">Signup</button>
-    
         </form>
     </div>
 
-</body>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
-<script>
-    function onClick(e) {
-        const result = zxcvbn(passwordInput.value);
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <script>
+        function onClick(e) {
+            const result = zxcvbn(passwordInput.value);
 
-        if (result.score < 2) { 
-            event.preventDefault();
-            document.getElementById("err-box").innerHTML = 'Your password is too weak! Please choose a stronger password.';
-        }
-        else {
-
-            e.preventDefault();
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9', {action: 'submit'}).then(function(token) {
-                    console.log('reCAPTCHA token:', token); 
-                    document.getElementById('g-recaptcha-response').value = token;
-                    document.getElementById('signup-form').submit();
+            if (result.score < 2) { 
+                e.preventDefault(); // Use 'e' instead of 'event'
+                document.getElementById("err-box").innerHTML = 'Your password is too weak! Please choose a stronger password.';
+            } else {
+                e.preventDefault();
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6Lf9qlYqAAAAAFFvEX-yt30CeZP4vpCbbPejSaP9', { action: 'submit' }).then(function(token) {
+                        document.getElementById('g-recaptcha-response').value = token;
+                        document.getElementById('signup-form').submit();
+                    });
                 });
-            });
-        }
-    }
-
-    const passwordInput = document.getElementById('password');
-    const strengthText = document.getElementById('password-strength');
-    const strengthBar = document.getElementById('strength-level');
-
-    // Array of colors for different strength levels
-    const strengthColors = ['#ff4d4d', '#ff751a', '#ffcc00', '#66ff66', '#00cc00'];
-
-    passwordInput.addEventListener('input', function () {
-        const password = passwordInput.value;
-        const result = zxcvbn(password);
-
-        // Update text and color based on password strength score
-        const score = result.score;
-        if(passwordInput.value.length < 1) {
-            strengthText.innerText = "Enter a password";
-            strengthBar.style.width = 0;
-            strengthBar.style.backgroundColor = strengthColors[0];
-        }
-        else {
-            strengthText.innerText = getPasswordStrengthText(score);
-            strengthBar.style.width = (score + 1) * 20 + '%';
-            strengthBar.style.backgroundColor = strengthColors[score];
-        }
-    });
-
-    // Function to return strength text based on score
-    function getPasswordStrengthText(score) {
-        if(passwordInput.value.length < 1) {
-            return "Enter a password"
-        }
-        else {
-            switch (score) {
-                case 0:
-                    return "Very Weak";
-                case 1:
-                    return "Weak";
-                case 2:
-                    return "Okay";
-                case 3:
-                    return "Good";
-                case 4:
-                    return "Strong";
-                default:
-                    return "";
             }
         }
-    }
-</script>
+
+        const passwordInput = document.getElementById('password');
+        const strengthText = document.getElementById('password-strength');
+        const strengthBar = document.getElementById('strength-level');
+
+        // Array of colors for different strength levels
+        const strengthColors = ['#ff4d4d', '#ff751a', '#ffcc00', '#66ff66', '#00cc00'];
+
+        passwordInput.addEventListener('input', function() {
+            const password = passwordInput.value;
+            const result = zxcvbn(password);
+
+            // Update text and color based on password strength score
+            const score = result.score;
+            if (passwordInput.value.length < 1) {
+                strengthText.innerText = "Enter a password";
+                strengthBar.style.width = 0;
+                strengthBar.style.backgroundColor = strengthColors[0];
+            } else {
+                strengthText.innerText = getPasswordStrengthText(score);
+                strengthBar.style.width = (score + 1) * 20 + '%';
+                strengthBar.style.backgroundColor = strengthColors[score];
+            }
+        });
+
+        // Function to return strength text based on score
+        function getPasswordStrengthText(score) {
+            if (passwordInput.value.length < 1) {
+                return "Enter a password";
+            } else {
+                switch (score) {
+                    case 0:
+                        return "Very Weak";
+                    case 1:
+                        return "Weak";
+                    case 2:
+                        return "Okay";
+                    case 3:
+                        return "Good";
+                    case 4:
+                        return "Strong";
+                    default:
+                        return "";
+                }
+            }
+        }
+    </script>
+</body>

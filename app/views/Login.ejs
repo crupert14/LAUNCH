@@ -1,32 +1,31 @@
 <head>
     <title>Login</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: black; /* Fallback background color */
+            background-image: url("../assets/bgImage/bg.png"); /* Default background for larger screens */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Mobile and Tablet background */
+        @media screen and (max-width: 768px) {
+            body {
+                background-image: url("../assets/bgImage/mobileBG.png"); /* Background for mobile */
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            body {
+                background-image: url("../assets/bgImage/tabletBG.png"); /* Background for tablets */
+            }
+        }
+    </style>
 </head>
-<style>
-    body {
-        height: 100%;
-        width: 100%;
-        background-color: black; /* Fallback background color */
-        background-image: url("../assets/bgImage/bg.png"); /* Default background for larger screens */
-        background-size: cover;
-        background-position: center;
-        
-    }
-    
-    /* Mobile background */
-    @media screen and (max-width: 768px) {
-        body {
-            background-image: url("../assets/bgImage/mobileBG.png"); /* Background for mobile */
-        }
-    }
-    
-    /* Tablet background */
-    @media screen and (max-width: 1024px) {
-        body {
-            background-image: url("../assets/bgImage/tabletBG.png"); /* Background for tablets */
-        }
-    }
-</style>
+
 <body>
     <%- include('./partials/navbar.ejs') %>
     <%- include('./partials/loginForm.ejs') %>

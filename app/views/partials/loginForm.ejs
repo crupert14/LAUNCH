@@ -1,12 +1,11 @@
 <style>
-
     .wrapper {
         width: 35em;
         background: transparent;
-        border: 0.25em solid rgba(255, 255, 255, .2);
+        border: 0.25em solid rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(20px); /* Adds the blur effect */
         -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 0 0.5em rgba(0,0,0,.2);
+        box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
         color: white;
         border-radius: 10px;
         padding: 1.5em 1.75em;
@@ -30,7 +29,7 @@
         background: transparent;
         border: none;
         outline: none;
-        border: 2px solid rgba(255, 255, 255, .2);
+        border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 40px;
         color: white;
         padding: 1em 2em 1em 1em;
@@ -47,7 +46,7 @@
         border: none;
         outline: none;
         border-radius: 40px;
-        box-shadow: 0 0 0.5em rgba(0, 0, 0, .1);
+        box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
         transition: 300ms;
         cursor: pointer;
     }
@@ -63,17 +62,12 @@
             height: auto; /* Allow height to adjust as needed */
         }
 
-        .profileInput {
-            width: 100%; /* Full width on smaller devices */
-            margin: 0.5em 0; /* Space between inputs */
-        }
-        
         .content-wrapper {
             flex-direction: column; /* Stack inputs vertically */
         }
     }
-
 </style>
+
 <div class="wrapper">
     <form action="/Login" method="POST">
         <h1>Login</h1>
