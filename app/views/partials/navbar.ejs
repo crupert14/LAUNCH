@@ -62,14 +62,15 @@
 
     @media (max-width: 768px) {
         nav {
-            flex-direction: column;
-            align-items: flex-start;
+            flex-direction: row; /* Keep items in a row */
+            justify-content: space-between; /* Ensure space between logo and hamburger */
         }
-    
+
         nav .hamburger {
             display: block; /* Show hamburger menu on mobile */
+            margin-left: auto; /* Push it to the right side */
         }
-    
+
         nav ul {
             display: none; /* Hide the nav links initially */
             flex-direction: column;
@@ -82,11 +83,11 @@
             padding: 20px 0; /* Padding for the dropdown */
             z-index: 5; /* Ensure dropdown stays below the hamburger */
         }
-    
+
         nav ul.active {
             display: flex; /* Show links when active */
         }
-    
+
         nav ul li a {
             font-size: 16px;
         }
